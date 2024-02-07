@@ -48,5 +48,8 @@ def main():
 		os.system("./decompiler/GTA\ V\ Script\ Decompiler -o export_diffmode -d -r ./BgScript")
 		os.system("./decompiler/GTA\ V\ Script\ Decompiler -o export_normal -r ./BgScript")
 
+		# Git commit the changes.
+		os.system('git add -A && git commit -m "BgScript updated"')
+
 if __name__ == "__main__":
     main()

@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import os, hashlib
 import urllib.request
 

@@ -50,7 +50,7 @@ def main():
 		os.system("./decompiler/GTA\ V\ Script\ Decompiler -o export_normal -r ./BgScript")
 
 		# Git commit the changes.
-		os.system('git add -A && git commit -m "BgScript updated"')
+		os.system('git add -A && git commit -m "BgScript updated" && git push')
 
 if __name__ == "__main__":
     main()

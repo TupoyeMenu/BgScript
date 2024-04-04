@@ -409,6 +409,7 @@
 	BOOL bLocal_407 = 0;
 	var uLocal_408 = 0;
 	var uLocal_409 = 0;
+	BOOL bLocal_410 = 0;
 	var uScriptParam_0 = 0;
 	var uScriptParam_1 = 0;
 #pragma endregion Local Var
@@ -418,7 +419,7 @@ void func_0xD9B9B639()
 	int num;
 	BOOL flag;
 
-	sLocal_0 = "1.68.22";
+	sLocal_0 = "1.68.23";
 	iLocal_20 = -1;
 	iLocal_21 = -1;
 	uLocal_29 = { 5022.5645f, -5738f, 16.0937f };
@@ -444,7 +445,7 @@ void func_0xD9B9B639()
 	while (true)
 	{
 		if (IS_ROCKSTAR_DEV())
-			func_0xDEDEDF10();
+			func_0xB401A131();
 	
 		func_0xD4C223E4();
 		flag = NETWORK::NETWORK_IS_GAME_IN_PROGRESS();
@@ -457,7 +458,7 @@ void func_0xD9B9B639()
 				FIX_FOR_3280561();
 				FIX_FOR_3533670();
 				FIX_FOR_5092622();
-				func_0x7FC40D2D();
+				func_0xEC2F1053();
 				func_0xDB4D8C01();
 				CHILIADWAKEUP_MAINTAIN();
 				func_0x5F76544B();
@@ -512,6 +513,7 @@ void func_0xD9B9B639()
 				func_0xA1E1DADD();
 				func_0x377CDA47();
 				func_0x812C6D2C();
+				func_0x7BEFDE4B();
 			}
 		
 			func_0x9FD13398(flag);
@@ -3366,6 +3368,1038 @@ BOOL _STOPWATCH_HAS_TIME_PASSED(var pStopwatch, int millis, BOOL useLocalTimer)
 	return false;
 }
 
+void func_0x7BEFDE4B()
+{
+	if (func_0x8D3F6FE3(PLAYER::PLAYER_ID()))
+	{
+		func_0x98E03307(46, 5000, -1);
+		_STOPWATCH_RESET(&Global_2685249.f_4328.f_242[46], true, false);
+	
+		if (!bLocal_410)
+			bLocal_410 = true;
+	}
+	else if (bLocal_410)
+	{
+		if (IS_BIT_SET(Global_1942781.f_1, 21))
+		{
+			if (_DOES_ENTITY_EXIST_AND_IS_ALIVE(PLAYER::PLAYER_PED_ID()))
+			{
+				ENTITY::SET_ENTITY_INVINCIBLE(PLAYER::PLAYER_PED_ID(), false);
+				func_0xC00EA541(false);
+			}
+		}
+		else
+		{
+			bLocal_410 = false;
+		}
+	}
+
+	return;
+}
+
+void func_0xC00EA541(BOOL bParam0)
+{
+	if (bParam0)
+		if (!IS_BIT_SET(Global_1942781.f_1, 21))
+			MISC::SET_BIT(&(Global_1942781.f_1), 21);
+	else if (IS_BIT_SET(Global_1942781.f_1, 21))
+		MISC::CLEAR_BIT(&(Global_1942781.f_1), 21);
+
+	return;
+}
+
+void func_0x98E03307(int iParam0, int iParam1, int iParam2)
+{
+	if (iParam2 != -1)
+		Global_2685249.f_4328.f_403[iParam0] = Global_2685249.f_4328.f_403[iParam0] + iParam2;
+	else if (iParam1 != -1)
+		Global_2685249.f_4328.f_403[iParam0] = iParam1;
+	else
+		Global_2685249.f_4328.f_403[iParam0] = func_0x38E9EEC9(iParam0);
+
+	return;
+}
+
+int func_0x38E9EEC9(int iParam0)
+{
+	switch (iParam0)
+	{
+		case 0:
+			return 300000;
+	
+		case 1:
+			return 0;
+	
+		case 2:
+			return 600000;
+	
+		case 3:
+			return 600000;
+	
+		case 4:
+			return 600000;
+	
+		case 5:
+			return 2880000;
+	
+		case 6:
+			return 300000;
+	
+		case 8:
+			return 300000;
+	
+		case 9:
+			return 300000;
+	
+		case 10:
+			return 600000;
+	
+		case 11:
+			return 300000;
+	
+		case 12:
+			return 900000;
+	
+		case 13:
+			return 300000;
+	
+		case 14:
+			return 0;
+	
+		case 15:
+			return 180000;
+	
+		case 16:
+			return 0;
+	
+		case 17:
+			return 180000;
+	
+		case 18:
+			return 180000;
+	
+		case 19:
+			return 180000;
+	
+		case 20:
+			return 300000;
+	
+		case 21:
+			return 180000;
+	
+		case 22:
+			return func_0x8A35F3D4();
+	
+		case 23:
+			return func_0x8A35F3D4();
+	
+		case 24:
+			return func_0x8A35F3D4();
+	
+		case 25:
+			return func_0x8A35F3D4();
+	
+		case 26:
+			return func_0x8A35F3D4();
+	
+		case 57:
+			return func_0x8A35F3D4();
+	
+		case 35:
+			return 480000;
+	
+		case 36:
+			return 180000;
+	
+		case 45:
+		case 7:
+		case 48:
+			if (Global_2738587.f_929 == 1)
+				return Global_262145.f_21783;
+			else if (Global_2738587.f_942 == 1)
+				return Global_262145.f_22899;
+			else
+				return Global_262145.f_19464;
+			break;
+	
+		case 53:
+		case 54:
+		case 55:
+		case 56:
+			return Global_262145.f_24702;
+	
+		case 47:
+			return Global_262145.f_21393;
+	
+		case 46:
+			return Global_262145.f_21779;
+	
+		case 49:
+			return Global_262145.f_23305;
+	
+		case 79:
+			return Global_262145.f_23306;
+	
+		case 52:
+			return Global_262145.f_24908;
+	
+		case 65:
+			return Global_262145.f_24926;
+	
+		case 66:
+			return Global_262145.f_24927;
+	
+		case 67:
+			return Global_262145.f_31190;
+	
+		case 78:
+			return Global_262145.f_22076;
+	
+		case 69:
+			return Global_262145.f_22075;
+	
+		case 39:
+			return 0;
+	
+		case 40:
+			return 0;
+	
+		case 41:
+			return 0;
+	
+		case 42:
+			return 0;
+	
+		case 50:
+			return 1800000;
+	
+		case 58:
+			return Global_262145.f_26046;
+	
+		case 62:
+			return Global_262145.f_26047;
+	
+		case 59:
+			return Global_262145.f_28650;
+	
+		case 60:
+			return Global_262145.f_28649;
+	
+		case 63:
+			return Global_262145.f_29536;
+	
+		case 64:
+			return 180000;
+	
+		case 72:
+			return Global_262145.f_26047;
+	
+		case 73:
+			return Global_262145.f_32099;
+	
+		case 74:
+			return Global_262145.f_32101;
+	
+		case 75:
+			return Global_262145.f_32103;
+	
+		case 76:
+			return Global_262145.f_32105;
+	
+		case 77:
+			return Global_262145.f_32106;
+	}
+
+	return 0;
+}
+
+int func_0x8A35F3D4()
+{
+	if (NETWORK::NETWORK_IS_SCRIPT_ACTIVE(func_0x899A1C9C(46), -1, false, 0) || func_0x48014DA(PLAYER::PLAYER_ID()) == 194)
+		return Global_262145.f_12151;
+
+	return 0;
+}
+
+int func_0x48014DA(Player plParam0)
+{
+	if (func_0x8B0CDA01(plParam0, false))
+		return Global_1886967[plParam0].f_10.f_33;
+
+	return -1;
+}
+
+BOOL func_0x8B0CDA01(Player plParam0, BOOL bParam1)
+{
+	if (Global_1886967[plParam0].f_10.f_33 != -1 || bParam1 && Global_1886967[plParam0].f_10.f_32 != -1)
+		return true;
+
+	return false;
+}
+
+char* func_0x899A1C9C(int iParam0)
+{
+	switch (iParam0)
+	{
+		case 1:
+			return "AM_HOLD_UP";
+	
+		case 32:
+			return "AM_JOYRIDER";
+	
+		case 33:
+			return "AM_PLANE_TAKEDOWN";
+	
+		case 34:
+			return "AM_DISTRACT_COPS";
+	
+		case 35:
+			return "AM_DESTROY_VEH";
+	
+		case 36:
+			return "AM_HOT_TARGET";
+	
+		case 37:
+			return "AM_KILL_LIST";
+	
+		case 38:
+			return "AM_TIME_TRIAL";
+	
+		case 39:
+			return "AM_CP_COLLECTION";
+	
+		case 40:
+			return "AM_CHALLENGES";
+	
+		case 41:
+			return "AM_PENNED_IN";
+	
+		case 42:
+			return "AM_PASS_THE_PARCEL";
+	
+		case 43:
+			return "AM_HOT_PROPERTY";
+	
+		case 44:
+			return "AM_DEAD_DROP";
+	
+		case 45:
+			return "AM_KING_OF_THE_CASTLE";
+	
+		case 46:
+			return "AM_CRIMINAL_DAMAGE";
+	
+		case 47:
+			return "AM_HUNT_THE_BEAST";
+	
+		case 48:
+			return "GB_LIMO_ATTACK";
+	
+		case 49:
+			return "GB_DEATHMATCH";
+	
+		case 50:
+			return "GB_STEAL_VEH";
+	
+		case 51:
+			return "GB_POINT_TO_POINT";
+	
+		case 52:
+			return "GB_TERMINATE";
+	
+		case 53:
+			return "GB_YACHT_ROB";
+	
+		case 54:
+			return "GB_BELLYBEAST";
+	
+		case 55:
+			return "GB_FIVESTAR";
+	
+		case 56:
+			return "GB_ROB_SHOP";
+	
+		case 57:
+			return "GB_COLLECT_MONEY";
+	
+		case 58:
+			return "GB_ASSAULT";
+	
+		case 59:
+			return "GB_VEH_SURV";
+	
+		case 60:
+			return "GB_SIGHTSEER";
+	
+		case 61:
+			return "GB_FLYING_IN_STYLE";
+	
+		case 62:
+			return "GB_FINDERSKEEPERS";
+	
+		case 63:
+			return "GB_HUNT_THE_BOSS";
+	
+		case 64:
+			return "GB_CARJACKING";
+	
+		case 65:
+			return "GB_HEADHUNTER";
+	
+		case 66:
+			return "GB_CONTRABAND_BUY";
+	
+		case 67:
+			return "GB_CONTRABAND_SELL";
+	
+		case 68:
+			return "GB_CONTRABAND_DEFEND";
+	
+		case 69:
+			return "GB_AIRFREIGHT";
+	
+		case 70:
+			return "GB_CASHING_OUT";
+	
+		case 71:
+			return "GB_SALVAGE";
+	
+		case 72:
+			return "GB_FRAGILE_GOODS";
+	
+		case 223:
+			return "dont_cross_the_line";
+	
+		case 226:
+			return "grid_arcade_cabinet";
+	
+		case 227:
+			return "scroll_arcade_cabinet";
+	
+		case 228:
+			return "example_arcade";
+	
+		case 229:
+			return "road_arcade";
+	
+		case 234:
+			return "Degenatron Games";
+	
+		case 230:
+			return "gunslinger_arcade";
+	
+		case 235:
+			return "ggsm_arcade";
+	
+		case 231:
+			return "wizard_arcade";
+	
+		case 232:
+			return "AM_CASINO_LIMO";
+	
+		case 233:
+			return "AM_CASINO_LUXURY_CAR";
+	
+		case 236:
+			return "puzzle";
+	
+		case 237:
+			return "camhedz_arcade";
+	
+		case 73:
+		case 74:
+			return "GB_VEHICLE_EXPORT";
+	
+		case 84:
+			return "GB_BIKER_JOUST";
+	
+		case 83:
+			return "GB_BIKER_RACE_P2P";
+	
+		case 85:
+			return "GB_BIKER_UNLOAD_WEAPONS";
+	
+		case 86:
+			return "";
+	
+		case 87:
+			return "GB_BIKER_BAD_DEAL";
+	
+		case 88:
+			return "GB_BIKER_RESCUE_CONTACT";
+	
+		case 89:
+			return "GB_BIKER_LAST_RESPECTS";
+	
+		case 90:
+			return "GB_BIKER_CONTRACT_KILLING";
+	
+		case 91:
+			return "GB_BIKER_CONTRABAND_SELL";
+	
+		case 92:
+			return "GB_BIKER_CONTRABAND_DEFEND";
+	
+		case 93:
+			return "GB_ILLICIT_GOODS_RESUPPLY";
+	
+		case 94:
+			return "GB_BIKER_DRIVEBY_ASSASSIN";
+	
+		case 102:
+			return "GB_BIKER_CRIMINAL_MISCHIEF";
+	
+		case 95:
+			return "GB_BIKER_RIPPIN_IT_UP";
+	
+		case 75:
+			return "GB_PLOUGHED";
+	
+		case 76:
+			return "GB_FULLY_LOADED";
+	
+		case 77:
+			return "GB_AMPHIBIOUS_ASSAULT";
+	
+		case 78:
+			return "GB_TRANSPORTER";
+	
+		case 79:
+			return "GB_FORTIFIED";
+	
+		case 80:
+			return "GB_VELOCITY";
+	
+		case 81:
+			return "GB_RAMPED_UP";
+	
+		case 82:
+			return "GB_STOCKPILING";
+	
+		case 96:
+			return "GB_BIKER_FREE_PRISONER";
+	
+		case 97:
+			return "GB_BIKER_SAFECRACKER";
+	
+		case 98:
+			return "GB_BIKER_STEAL_BIKES";
+	
+		case 99:
+			return "GB_BIKER_SEARCH_AND_DESTROY";
+	
+		case 100:
+			return "AM_PENNED_IN";
+	
+		case 101:
+			return "GB_BIKER_STAND_YOUR_GROUND";
+	
+		case 103:
+			return "GB_BIKER_DESTROY_VANS";
+	
+		case 104:
+			return "GB_BIKER_BURN_ASSETS";
+	
+		case 105:
+			return "GB_BIKER_SHUTTLE";
+	
+		case 106:
+			return "GB_BIKER_WHEELIE_RIDER";
+	
+		case 107:
+		case 108:
+			return "GB_GUNRUNNING";
+	
+		case 109:
+			return "GB_GUNRUNNING_DEFEND";
+	
+		case 110:
+		case 111:
+		case 112:
+			return "GB_SMUGGLER";
+	
+		case 113:
+			return "GB_GANGOPS";
+	
+		case 114:
+			return "BUSINESS_BATTLES";
+	
+		case 115:
+			return "BUSINESS_BATTLES_SELL";
+	
+		case 116:
+			return "BUSINESS_BATTLES_DEFEND";
+	
+		case 117:
+			return "GB_SECURITY_VAN";
+	
+		case 118:
+			return "GB_TARGET_PURSUIT";
+	
+		case 119:
+			return "GB_JEWEL_STORE_GRAB";
+	
+		case 120:
+			return "GB_BANK_JOB";
+	
+		case 121:
+			return "GB_DATA_HACK";
+	
+		case 122:
+			return "GB_INFILTRATION";
+	
+		case 123:
+			return "BUSINESS_BATTLES_DEFEND";
+	
+		case 124:
+			return "BUSINESS_BATTLES_SELL";
+	
+		case 125:
+			return "GB_CASINO";
+	
+		case 126:
+			return "GB_CASINO_HEIST";
+	
+		case 127:
+			return "fm_content_business_battles";
+	
+		case 151:
+			return "fm_content_crime_scene";
+	
+		case 128:
+			return "fm_content_drug_vehicle";
+	
+		case 129:
+			return "fm_content_movie_props";
+	
+		case 130:
+			return "fm_content_island_heist";
+	
+		case 131:
+			return "fm_content_island_dj";
+	
+		case 133:
+			return "fm_content_golden_gun";
+	
+		case 3:
+			return "AM_CR_SELL_DRUGS";
+	
+		case 12:
+			return "AM_Safehouse";
+	
+		case 16:
+			return "MG_RACE_TO_POINT";
+	
+		case 18:
+			return "AM_CRATE_DROP";
+	
+		case 28:
+			return "AM_AMMO_DROP";
+	
+		case 29:
+			return "AM_VEHICLE_DROP";
+	
+		case 30:
+			return "AM_BRU_BOX";
+	
+		case 31:
+			return "AM_GA_PICKUPS";
+	
+		case 26:
+			return "AM_backup_heli";
+	
+		case 27:
+			return "AM_airstrike";
+	
+		case 17:
+			return "AM_PI_MENU";
+	
+		case 192:
+			return "AM_BOAT_TAXI";
+	
+		case 193:
+			return "AM_HELI_TAXI";
+	
+		case 19:
+			return "AM_IMP_EXP";
+	
+		case 22:
+			return "AM_TAXI";
+	
+		case 23:
+			return "AM_TAXI_LAUNCHER";
+	
+		case 24:
+			return "AM_GANG_CALL";
+	
+		case 25:
+			return "heli_gun";
+	
+		case 206:
+			return "am_rollercoaster";
+	
+		case 207:
+			return "am_ferriswheel";
+	
+		case 208:
+			return "AM_LAUNCHER";
+	
+		case 209:
+			return "AM_DAILY_OBJECTIVES";
+	
+		case 4:
+			return "AM_STRIPPER";
+	
+		case 13:
+			return "AM_Hitchhiker";
+	
+		case 5:
+			return "stripclub_mp";
+	
+		case 6:
+			return "AM_ArmWrestling";
+	
+		case 8:
+			return "AM_Tennis";
+	
+		case 9:
+			return "AM_Darts";
+	
+		case 7:
+			return "AM_ImportExport";
+	
+		case 10:
+			return "AM_FistFight";
+	
+		case 11:
+			return "AM_DropOffHooker";
+	
+		case 15:
+			return "AM_DOORS";
+	
+		case 20:
+			return "FM_INTRO";
+	
+		case 21:
+			return "AM_PROSTITUTE";
+	
+		case 194:
+			return "fm_hold_up_tut";
+	
+		case 195:
+			return "AM_CAR_MOD_TUT";
+	
+		case 196:
+			return "AM_CONTACT_REQUESTS";
+	
+		case 197:
+			return "am_mission_launch";
+	
+		case 198:
+			return "am_npc_invites";
+	
+		case 199:
+			return "am_lester_cut";
+	
+		case 202:
+			return "AM_VEHICLE_SPAWN";
+	
+		case 203:
+			return "am_ronTrevor_Cut";
+	
+		case 204:
+			return "AM_ARMYBASE";
+	
+		case 205:
+			return "AM_PRISON";
+	
+		case 210:
+			return "AM_ArmWrestling";
+	
+		case 217:
+			return "fm_Bj_race_controler";
+	
+		case 211:
+			return "AM_Darts";
+	
+		case 218:
+			return "fm_deathmatch_controler";
+	
+		case 216:
+			return "FM_Impromptu_DM_Controler";
+	
+		case 219:
+			return "fm_hideout_controler";
+	
+		case 212:
+			return "golf_mp";
+	
+		case 215:
+			return "Pilot_School_MP";
+	
+		case 220:
+			return func_0x7DA45BC();
+	
+		case 221:
+			return "FM_Race_Controler";
+	
+		case 213:
+			return "Range_Modern_MP";
+	
+		case 222:
+			if (func_0x88F24670(*Global_4718592.f_183007))
+				return "FM_Survival_Controller";
+			else
+				return "FM_Horde_Controler";
+			break;
+	
+		case 214:
+			return "tennis_network_mp";
+	
+		case 200:
+			return "am_heist_int";
+	
+		case 201:
+			return "am_lowrider_int";
+	
+		case 224:
+			return "am_darts_apartment";
+	
+		case 225:
+			return "AM_Armwrestling_Apartment";
+	
+		case 238:
+			return "SCTV";
+	
+		case 0:
+			return "";
+	}
+
+	switch (iParam0)
+	{
+		case 132:
+			return "AM_ISLAND_BACKUP_HELI";
+	
+		case 134:
+			return "fm_content_tuner_robbery";
+	
+		case 135:
+			return "fm_content_vehicle_list";
+	
+		case 136:
+			return "tuner_sandbox_activity";
+	
+		case 137:
+			return "fm_content_auto_shop_delivery";
+	
+		case 138:
+			return "fm_content_payphone_hit";
+	
+		case 139:
+			return "fm_content_security_contract";
+	
+		case 140:
+			return "fm_content_vip_contract_1";
+	
+		case 141:
+			return "fm_content_metal_detector";
+	
+		case 142:
+			return "am_agency_suv";
+	
+		case 143:
+			return "fm_content_phantom_car";
+	
+		case 144:
+			return "fm_content_slasher";
+	
+		case 145:
+			return "fm_content_sightseeing";
+	
+		case 146:
+			return "fm_content_smuggler_trail";
+	
+		case 148:
+			return "fm_content_skydive";
+	
+		case 149:
+			return "fm_content_cerberus";
+	
+		case 147:
+			return "fm_content_smuggler_plane";
+	
+		case 150:
+			return "fm_content_parachuter";
+	
+		case 152:
+			return "fm_content_bar_resupply";
+	
+		case 153:
+			return "fm_content_bike_shop_delivery";
+	
+		case 154:
+			return "fm_content_clubhouse_contracts";
+	
+		case 155:
+			return "fm_content_cargo";
+	
+		case 156:
+			return "fm_content_export_cargo";
+	
+		case 157:
+			return "fm_content_ammunation";
+	
+		case 158:
+			return "fm_content_gunrunning";
+	
+		case 159:
+			return "fm_content_source_research";
+	
+		case 160:
+			return "fm_content_club_management";
+	
+		case 161:
+			return "fm_content_club_odd_jobs";
+	
+		case 162:
+			return "fm_content_club_source";
+	
+		case 163:
+			return "fm_content_convoy";
+	
+		case 164:
+			return "fm_content_robbery";
+	
+		case 165:
+			return "fm_content_acid_lab_setup";
+	
+		case 166:
+			return "fm_content_acid_lab_source";
+	
+		case 167:
+			return "fm_content_acid_lab_sell";
+	
+		case 168:
+			return "fm_content_drug_lab_work";
+	
+		case 169:
+			return "fm_content_stash_house";
+	
+		case 170:
+			return "fm_content_taxi_driver";
+	
+		case 171:
+			return "fm_content_xmas_mugger";
+	
+		case 172:
+			return "fm_content_bank_shootout";
+	
+		case 173:
+			return "fm_content_armoured_truck";
+	
+		case 174:
+			return "fm_content_ghosthunt";
+	
+		case 175:
+			return "fm_content_smuggler_sell";
+	
+		case 176:
+			return "fm_content_smuggler_resupply";
+	
+		case 177:
+			return "fm_content_smuggler_ops";
+	
+		case 178:
+			return "fm_content_bicycle_time_trial";
+	
+		case 179:
+			return "fm_content_possessed_animals";
+	
+		case 180:
+			return "fm_content_chop_shop_delivery";
+	
+		case 181:
+			return "fm_content_xmas_truck";
+	
+		case 182:
+			return "fm_content_tow_truck_work";
+	
+		case 183:
+			return "fm_content_vehrob_scoping";
+	
+		case 184:
+			return "fm_content_vehrob_task";
+	
+		case 185:
+			return "fm_content_vehrob_prep";
+	
+		case 186:
+			return "fm_content_vehrob_disrupt";
+	
+		case 187:
+			return "fm_content_vehrob_cargo_ship";
+	
+		case 188:
+			return "fm_content_vehrob_police";
+	
+		case 189:
+			return "fm_content_vehrob_arena";
+	
+		case 190:
+			return "fm_content_vehrob_casino_prize";
+	
+		case 191:
+			return "fm_content_vehrob_submarine";
+	
+		default:
+		
+	}
+
+	return "";
+}
+
+BOOL func_0x88F24670(int iParam0)
+{
+	return iParam0 == 998;
+}
+
+char* func_0x7DA45BC()
+{
+	if (func_0x353CEA88())
+		return "fm_mission_controller";
+
+	return "fm_mission_controller_2020";
+}
+
+BOOL func_0x353CEA88()
+{
+	if (func_0x3650ADA8(2))
+		return false;
+
+	return true;
+}
+
+BOOL func_0x3650ADA8(int iParam0)
+{
+	return *Global_4718592.f_183008 >= iParam0;
+}
+
+int func_0x8A35F3D4()
+{
+	if (NETWORK::NETWORK_IS_SCRIPT_ACTIVE(func_0x899A1C9C(46), -1, false, 0) || func_0x48014DA(PLAYER::PLAYER_ID()) == 194)
+		return Global_262145.f_11911;
+
+	return 0;
+}
+
+BOOL func_0x8D3F6FE3(Player plParam0)
+{
+	if (plParam0 != _INVALID_PLAYER_INDEX())
+		return IS_BIT_SET(Global_2657921[plParam0].f_321, 8);
+
+	return false;
+}
+
 void func_0x812C6D2C()
 {
 	if (*Global_4718592.f_126144 == func_0x62114499(5) || *Global_4718592.f_126144 == func_0x62114499(6))
@@ -3668,41 +4702,41 @@ void func_0xAA74A2F3(BOOL bParam0, BOOL bParam1, BOOL bParam2, BOOL bParam3, BOO
 		bParam0 = true;
 
 	if (bParam0)
-		func_0xCA3FF4F4(2);
+		func_0xD038FA6B(2);
 	else
-		func_0xCA3FF4F4(1);
+		func_0xD038FA6B(1);
 
 	if (bParam1)
-		func_0xCA3FF4F4(11);
+		func_0xD038FA6B(11);
 
 	if (bParam2)
 	{
-		func_0xCA3FF4F4(32);
+		func_0xD038FA6B(32);
 	
 		if (bParam3)
 			if (_GET_ACTIVE_PV_SLOT() >= 0 && IS_BIT_SET(Global_1586504[_GET_ACTIVE_PV_SLOT()].f_103, 0))
-				func_0xCA3FF4F4(33);
+				func_0xD038FA6B(33);
 		else
 			func_0xE0BC02E(33);
 	
 		if (_GET_ACTIVE_PV_SLOT() >= 0)
 			if (func_0xAD766E45(Global_1586504[_GET_ACTIVE_PV_SLOT()].f_66))
-				func_0xCA3FF4F4(40);
+				func_0xD038FA6B(40);
 	}
 	else if (bParam5)
 	{
-		func_0xCA3FF4F4(37);
+		func_0xD038FA6B(37);
 	}
 
 	if (bParam4)
-		func_0xCA3FF4F4(36);
+		func_0xD038FA6B(36);
 
 	if (func_0x2B8C56B7(36))
 		if (func_0x2B8C56B7(2))
 			func_0xE0BC02E(36);
 
 	if (bParam6)
-		func_0xCA3FF4F4(38);
+		func_0xD038FA6B(38);
 
 	if (NETWORK::NETWORK_IS_GAME_IN_PROGRESS())
 		Global_2738587.f_440 = NETWORK::GET_NETWORK_TIME();
@@ -3718,10 +4752,10 @@ BOOL func_0xAD766E45(int iParam0)
 	return false;
 }
 
-void func_0xCA3FF4F4(int iParam0)
+void func_0xD038FA6B(int iParam0)
 {
 	if (iParam0 < 32)
-		if (!IS_BIT_SET(*Global_2672741.f_63.f_1, iParam0))
+		if (!IS_BIT_SET(Global_2672741.f_63.f_1, iParam0))
 			MISC::SET_BIT(&(Global_2672741.f_63.f_1), iParam0);
 	else if (!IS_BIT_SET(Global_2672741.f_63.f_2, iParam0 - 32))
 		MISC::SET_BIT(&(Global_2672741.f_63.f_2), iParam0 - 32);
@@ -3896,22 +4930,6 @@ int func_0x48014DA(Player plParam0)
 {
 	if (func_0x8B0CDA01(plParam0, false))
 		return Global_1886967[plParam0].f_10.f_182;
-
-	return -1;
-}
-
-BOOL func_0x8B0CDA01(Player plParam0, BOOL bParam1)
-{
-	if (Global_1886967[plParam0].f_10.f_33 != -1 || bParam1 && Global_1886967[plParam0].f_10.f_32 != -1)
-		return true;
-
-	return false;
-}
-
-int func_0x48014DA(Player plParam0)
-{
-	if (func_0x8B0CDA01(plParam0, false))
-		return Global_1886967[plParam0].f_10.f_33;
 
 	return -1;
 }
@@ -4960,12 +5978,12 @@ void func_0x4FAAE421()
 	switch (iLocal_345)
 	{
 		case 0:
-			if (func_0x8E7B2285(81))
+			if (func_0xB3030724(81))
 				iLocal_345 = 1;
 			break;
 	
 		case 1:
-			if (func_0x8E7B2285(81))
+			if (func_0xB3030724(81))
 				if (Global_1942781.f_4706.f_4 == 81)
 					if (Global_1942781.f_4706.f_2 == 12)
 						iLocal_345 = 2;
@@ -4976,7 +5994,7 @@ void func_0x4FAAE421()
 			break;
 	
 		case 2:
-			if (!func_0x8E7B2285(81))
+			if (!func_0xB3030724(81))
 			{
 				func_0xA320C80();
 			}
@@ -5008,7 +6026,7 @@ void func_0xA320C80()
 	return;
 }
 
-BOOL func_0x8E7B2285(int iParam0)
+BOOL func_0xB3030724(int iParam0)
 {
 	if (NETWORK::NETWORK_IS_PLAYER_A_PARTICIPANT_ON_SCRIPT(PLAYER::PLAYER_ID(), "AM_MP_SMPL_INTERIOR_EXT", iParam0) || NETWORK::NETWORK_IS_SCRIPT_ACTIVE("AM_MP_SMPL_INTERIOR_EXT", iParam0, true, 0) || func_0x5BE574C(12, iParam0))
 		return true;
@@ -5111,7 +6129,7 @@ void func_0xAA4F9322()
 
 void func_0xB5F005B()
 {
-	if (func_0xCE2D1A11(PLAYER::PLAYER_ID()))
+	if (func_0xFE5E152(PLAYER::PLAYER_ID()))
 	{
 		if (NETWORK::NETWORK_IS_GAME_IN_PROGRESS())
 		{
@@ -6087,7 +7105,7 @@ BOOL func_0xA439E034(Player plParam0)
 	return false;
 }
 
-BOOL func_0xCE2D1A11(Player plParam0)
+BOOL func_0xFE5E152(Player plParam0)
 {
 	if (plParam0 != _INVALID_PLAYER_INDEX())
 		return IS_BIT_SET(Global_2657921[plParam0].f_321.f_5, 7);
@@ -7807,7 +8825,7 @@ void func_0x6D6D328D()
 		{
 			vehiclePedIsIn = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), true);
 		
-			if (func_0x4B775367(vehiclePedIsIn, true) || func_0x818ED850(vehiclePedIsIn, true))
+			if (func_0x4B775367(vehiclePedIsIn, true) || func_0x1540FA4C(vehiclePedIsIn, true))
 				if (VEHICLE::GET_IS_VEHICLE_ENGINE_RUNNING(vehiclePedIsIn) || func_0x65FE6645(PLAYER::PLAYER_ID()) || VEHICLE::IS_VEHICLE_MODEL(vehiclePedIsIn, joaat("oppressor2")) && PLAYER::PLAYER_PED_ID() == VEHICLE::GET_PED_IN_VEHICLE_SEAT(vehiclePedIsIn, -1, false) && !func_0x7C71011F(PLAYER::PLAYER_ID()) && !PED::GET_PED_RESET_FLAG(PLAYER::PLAYER_PED_ID(), 373))
 					if (func_0x65FE6645(PLAYER::PLAYER_ID()))
 						bLocal_71 = true;
@@ -7859,7 +8877,7 @@ void func_0x32520C49()
 		
 			if (func_0x4B775367(vehiclePedIsUsing, true) && func_0xECAA0854(vehiclePedIsUsing) == PLAYER::PLAYER_ID())
 				Global_2738587.f_288 = -1;
-			else if (func_0x818ED850(vehiclePedIsUsing, true))
+			else if (func_0x1540FA4C(vehiclePedIsUsing, true))
 				func_0x97234A0B(&vehiclePedIsUsing);
 		}
 	}
@@ -8129,7 +9147,7 @@ void func_0x7E110C6F(Vehicle veParam0, BOOL bParam1)
 {
 	int _int;
 
-	if (!func_0x2C82DDC1(veParam0) || bParam1)
+	if (!func_0xB4BAF94A(veParam0) || bParam1)
 	{
 		if (!Global_1836669 || Global_1836679 && !func_0x9B371C47())
 		{
@@ -8484,7 +9502,7 @@ BOOL func_0x9B371C47()
 	return false;
 }
 
-BOOL func_0x2C82DDC1(Vehicle veParam0)
+BOOL func_0xB4BAF94A(Vehicle veParam0)
 {
 	int _int;
 
@@ -8565,7 +9583,7 @@ BOOL func_0x65FE6645(Player plParam0)
 	return false;
 }
 
-BOOL func_0x818ED850(Vehicle veParam0, BOOL bParam1)
+BOOL func_0x1540FA4C(Vehicle veParam0, BOOL bParam1)
 {
 	if (Global_79248)
 		if (ENTITY::DOES_ENTITY_EXIST(veParam0) && !bParam1 || VEHICLE::IS_VEHICLE_DRIVEABLE(veParam0, false))
@@ -9130,7 +10148,7 @@ void func_0x4918B04C(var uParam0)
 
 void func_0x352D5BFD()
 {
-	if (_NETWORK_IS_PLAYER_VALID(PLAYER::PLAYER_ID(), true, true) && func_0x48014DA(PLAYER::PLAYER_ID()) == 331 && Global_2738587.f_6815.f_1 == 11 && func_0x5FF64CFA(PLAYER::PLAYER_ID()) && func_0x7119FB7D())
+	if (_NETWORK_IS_PLAYER_VALID(PLAYER::PLAYER_ID(), true, true) && func_0x48014DA(PLAYER::PLAYER_ID()) == 331 && Global_2738587.f_6815.f_1 == 11 && func_0x5FF64CFA(PLAYER::PLAYER_ID()) && func_0x9F96C577())
 		func_0xC536DD5();
 
 	return;
@@ -9157,11 +10175,11 @@ void func_0xF6D04E68()
 	return;
 }
 
-BOOL func_0x7119FB7D()
+BOOL func_0x9F96C577()
 {
 	var string1;
 
-	string1 = { func_0xA584B5B7() };
+	string1 = { func_0xF0BF0F97() };
 
 	if (MISC::ARE_STRINGS_EQUAL(&string1, "XM4R3_28_1") || MISC::ARE_STRINGS_EQUAL(&string1, "XM4R3_28_2"))
 		return true;
@@ -9169,7 +10187,7 @@ BOOL func_0x7119FB7D()
 	return false;
 }
 
-struct<6> func_0xA584B5B7()
+struct<6> func_0xF0BF0F97()
 {
 	var unk;
 
@@ -10134,7 +11152,7 @@ Entity func_0x503B7065()
 							{
 								if (VEHICLE::IS_VEHICLE_MODEL(sizeAndVehs[i], joaat("avenger")) || VEHICLE::IS_VEHICLE_MODEL(sizeAndVehs[i], func_0x9AA99395(true)))
 								{
-									if (func_0xB8E66CE(sizeAndVehs[i]) == _GET_BOSS_OF_LOCAL_PLAYER())
+									if (func_0xD6F3C04A(sizeAndVehs[i]) == _GET_BOSS_OF_LOCAL_PLAYER())
 									{
 										Global_2738587.f_310 = sizeAndVehs[i];
 										return sizeAndVehs[i];
@@ -10166,7 +11184,7 @@ Entity func_0x503B7065()
 					{
 						if (VEHICLE::IS_VEHICLE_MODEL(sizeAndVehs2[j], joaat("avenger")) || VEHICLE::IS_VEHICLE_MODEL(sizeAndVehs2[j], func_0x9AA99395(true)))
 						{
-							if (func_0xB8E66CE(sizeAndVehs2[j]) == PLAYER::PLAYER_ID())
+							if (func_0xD6F3C04A(sizeAndVehs2[j]) == PLAYER::PLAYER_ID())
 							{
 								Global_2738587.f_310 = sizeAndVehs2[j];
 								return sizeAndVehs2[j];
@@ -10181,7 +11199,7 @@ Entity func_0x503B7065()
 	return Global_2738587.f_310;
 }
 
-Player func_0xB8E66CE(Vehicle veParam0)
+Player func_0xD6F3C04A(Vehicle veParam0)
 {
 	Hash _int;
 
@@ -10216,7 +11234,7 @@ Player _GET_BOSS_OF_LOCAL_PLAYER()
 	return Global_1886967[PLAYER::PLAYER_ID()].f_10;
 }
 
-void func_0x7FC40D2D()
+void func_0xEC2F1053()
 {
 	if (func_0x440D1C81(PLAYER::PLAYER_ID()))
 		if (SCRIPT::DOES_SCRIPT_EXIST("appMPJobListNEW") && SCRIPT::GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(joaat("appmpjoblistnew")) > 0)
@@ -10381,7 +11399,7 @@ BOOL func_0xE828791()
 	return false;
 }
 
-void func_0xDEDEDF10()
+void func_0xB401A131()
 {
 	if (bLocal_1)
 	{

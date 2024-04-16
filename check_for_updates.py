@@ -2,7 +2,7 @@
 import os, hashlib
 import urllib.request
 
-download_filename = "bg_ng_3095_0.rpf"
+download_filename = "bg_ng_3179_0.rpf"
 filename = "BgScript.rpf"
 file_hash = 0
 

@@ -419,7 +419,7 @@ void func_0xD9B9B639()
 	int num;
 	BOOL flag;
 
-	sLocal_diffmode = "1.68.23";
+	sLocal_diffmode = "1.68.23a";
 	iLocal_diffmode = -1;
 	iLocal_diffmode = -1;
 	uLocal_diffmode = { 5022.5645f, -5738f, 16.0937f };
@@ -964,7 +964,7 @@ void func_0xF71B7DD8()
 
 	vehiclePedIsIn = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), false);
 
-	if (!ENTITY::DOES_ENTITY_EXIST(vehiclePedIsIn) || !VEHICLE::IS_VEHICLE_DRIVEABLE(vehiclePedIsIn, false) || !func_0x5000025C(ENTITY::GET_ENTITY_MODEL(vehiclePedIsIn)) || func_0x72E35352(vehiclePedIsIn))
+	if (!ENTITY::DOES_ENTITY_EXIST(vehiclePedIsIn) || !VEHICLE::IS_VEHICLE_DRIVEABLE(vehiclePedIsIn, false) || !func_0x5000025C(ENTITY::GET_ENTITY_MODEL(vehiclePedIsIn)) || func_0xFD10B80F(vehiclePedIsIn))
 		return;
 
 	func_0x595FDD57(vehiclePedIsIn);
@@ -988,7 +988,7 @@ void func_0x595FDD57(Vehicle veParam0)
 	return;
 }
 
-BOOL func_0x72E35352(Vehicle veParam0)
+BOOL func_0xFD10B80F(Vehicle veParam0)
 {
 	if (NETWORK::NETWORK_IS_GAME_IN_PROGRESS())
 		if (DECORATOR::DECOR_IS_REGISTERED_AS_TYPE("Player_Vehicle", INT))
@@ -3275,7 +3275,7 @@ void func_0x9FD13398(BOOL bParam0)
 		{
 			if (func_0xD613B9BD())
 			{
-				func_0x76B18054(&Global_diffmode);
+				func_0xFDFEE685(&Global_diffmode);
 				NETWORK::NETWORK_BAIL(51, 0, 0);
 				bLocal_diffmode = true;
 			}
@@ -3289,7 +3289,7 @@ void func_0x9FD13398(BOOL bParam0)
 	return;
 }
 
-void func_0x76B18054(var uParam0)
+void func_0xFDFEE685(var uParam0)
 {
 	int i;
 
@@ -7048,13 +7048,13 @@ void func_0x4086565B(BOOL bParam0)
 	for (i = 0; i < Global_diffmode; i = i + 1)
 	{
 		HUD::CLEAR_FLOATING_HELP(i, bParam0);
-		func_0xB1A0D860(i);
+		func_0x2897B6B6(i);
 	}
 
 	return;
 }
 
-void func_0xB1A0D860(int iParam0)
+void func_0x2897B6B6(int iParam0)
 {
 	Global_diffmode[iParam0].f_diffmode = 0;
 	TEXT_LABEL_ASSIGN_STRING(&Global_diffmode[iParam0], "", 16);
@@ -7072,11 +7072,11 @@ void func_0x8D11088E()
 	if (!Global_diffmode)
 		return;
 
-	func_0xED502A2C();
+	func_0x1CF0CF3D();
 	return;
 }
 
-void func_0xED502A2C()
+void func_0x1CF0CF3D()
 {
 	Global_diffmode = false;
 	TEXT_LABEL_ASSIGN_STRING(&(Global_diffmode.f_diffmode), "", 32);
@@ -8825,7 +8825,7 @@ void func_0x6D6D328D()
 		{
 			vehiclePedIsIn = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), true);
 		
-			if (func_0x4B775367(vehiclePedIsIn, true) || func_0x1540FA4C(vehiclePedIsIn, true))
+			if (func_0xF805F5A6(vehiclePedIsIn, true) || func_0x1540FA4C(vehiclePedIsIn, true))
 				if (VEHICLE::GET_IS_VEHICLE_ENGINE_RUNNING(vehiclePedIsIn) || func_0x65FE6645(PLAYER::PLAYER_ID()) || VEHICLE::IS_VEHICLE_MODEL(vehiclePedIsIn, joaat("oppressor2")) && PLAYER::PLAYER_PED_ID() == VEHICLE::GET_PED_IN_VEHICLE_SEAT(vehiclePedIsIn, -1, false) && !func_0x7C71011F(PLAYER::PLAYER_ID()) && !PED::GET_PED_RESET_FLAG(PLAYER::PLAYER_PED_ID(), 373))
 					if (func_0x65FE6645(PLAYER::PLAYER_ID()))
 						bLocal_diffmode = true;
@@ -8875,7 +8875,7 @@ void func_0x32520C49()
 			VEHICLE::SET_CAN_USE_HYDRAULICS(vehiclePedIsUsing, true);
 			NETWORK::NETWORK_SET_ENTITY_ONLY_EXISTS_FOR_PARTICIPANTS(vehiclePedIsUsing, false);
 		
-			if (func_0x4B775367(vehiclePedIsUsing, true) && func_0xECAA0854(vehiclePedIsUsing) == PLAYER::PLAYER_ID())
+			if (func_0xF805F5A6(vehiclePedIsUsing, true) && func_0xAD658B4(vehiclePedIsUsing) == PLAYER::PLAYER_ID())
 				Global_diffmode.f_diffmode = -1;
 			else if (func_0x1540FA4C(vehiclePedIsUsing, true))
 				func_0x97234A0B(&vehiclePedIsUsing);
@@ -9107,11 +9107,11 @@ void func_0x492EF904(int iParam0)
 	return;
 }
 
-Player func_0xECAA0854(Vehicle veParam0)
+Player func_0xAD658B4(Vehicle veParam0)
 {
 	Hash _int;
 
-	if (!func_0x4B775367(veParam0, true))
+	if (!func_0xF805F5A6(veParam0, true))
 		return _INVALID_PLAYER_INDEX();
 
 	_int = DECORATOR::DECOR_GET_INT(veParam0, "Player_Vehicle");
@@ -9593,7 +9593,7 @@ BOOL func_0x1540FA4C(Vehicle veParam0, BOOL bParam1)
 	return 0;
 }
 
-BOOL func_0x4B775367(Vehicle veParam0, BOOL bParam1)
+BOOL func_0xF805F5A6(Vehicle veParam0, BOOL bParam1)
 {
 	if (Global_diffmode)
 		if (ENTITY::DOES_ENTITY_EXIST(veParam0) && !bParam1 || VEHICLE::IS_VEHICLE_DRIVEABLE(veParam0, false))

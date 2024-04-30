@@ -419,7 +419,7 @@ void func_0xD9B9B639()
 	int num;
 	BOOL flag;
 
-	sLocal_diffmode = "1.68.24";
+	sLocal_diffmode = "1.68.25";
 	iLocal_diffmode = -1;
 	iLocal_diffmode = -1;
 	uLocal_diffmode = { 5022.5645f, -5738f, 16.0937f };
@@ -3380,12 +3380,20 @@ void func_0xEB39585E()
 		if (func_0x3DC0CE5C() || func_0x2ADA0D98() || !func_0xFEA78839())
 			NETWORK::NETWORK_BAIL(1, 0, 0);
 	}
-	else if (func_0x47FF56D2() == 4 && MISC::ARE_STRINGS_EQUAL(&(Global_diffmode.f_diffmode), "_gYr4YkTe0mxBOOZsDT24A"))
+	else if (func_0x47FF56D2() == 4 && func_0x9FEFFC9D())
 	{
 		NETWORK::NETWORK_BAIL(51, 0, 0);
 	}
 
 	return;
+}
+
+BOOL func_0x9FEFFC9D()
+{
+	if (MISC::ARE_STRINGS_EQUAL(&(Global_diffmode.f_diffmode), "_gYr4YkTe0mxBOOZsDT24A") || MISC::ARE_STRINGS_EQUAL(&(Global_diffmode.f_diffmode), "msRtHbyXrEq6n4aPhsXXYQ"))
+		return true;
+
+	return false;
 }
 
 int func_0x47FF56D2()
@@ -3710,7 +3718,7 @@ int func_0x38E9EEC9(int iParam0)
 
 int func_0x8A35F3D4()
 {
-	if (NETWORK::NETWORK_IS_SCRIPT_ACTIVE(func_0xFF3BA9E9(46), -1, false, 0) || func_0x48014DA(PLAYER::PLAYER_ID()) == 194)
+	if (NETWORK::NETWORK_IS_SCRIPT_ACTIVE(func_0x6C6E4F74(46), -1, false, 0) || func_0x48014DA(PLAYER::PLAYER_ID()) == 194)
 		return Global_diffmode.f_diffmode;
 
 	return 0;
@@ -3732,7 +3740,7 @@ BOOL func_0x8B0CDA01(Player plParam0, BOOL bParam1)
 	return false;
 }
 
-char* func_0xFF3BA9E9(int iParam0)
+char* func_0x6C6E4F74(int iParam0)
 {
 	switch (iParam0)
 	{
@@ -4481,7 +4489,7 @@ BOOL func_0x3650ADA8(int iParam0)
 
 int func_0x8A35F3D4()
 {
-	if (NETWORK::NETWORK_IS_SCRIPT_ACTIVE(func_0xFF3BA9E9(46), -1, false, 0) || func_0x48014DA(PLAYER::PLAYER_ID()) == 194)
+	if (NETWORK::NETWORK_IS_SCRIPT_ACTIVE(func_0x6C6E4F74(46), -1, false, 0) || func_0x48014DA(PLAYER::PLAYER_ID()) == 194)
 		return Global_diffmode.f_diffmode;
 
 	return 0;
@@ -6330,7 +6338,7 @@ void func_0x7C034C1A(BOOL bParam0, BOOL bParam1, BOOL bParam2, BOOL bParam3)
 
 	if (bParam0)
 	{
-		func_0x4086565B(true);
+		func_0x43F9ED58(true);
 		HUD::CLEAR_HELP(true);
 	}
 
@@ -7141,7 +7149,7 @@ void func_0xF8FE2348()
 	return;
 }
 
-void func_0x4086565B(BOOL bParam0)
+void func_0x43F9ED58(BOOL bParam0)
 {
 	int i;
 
@@ -7150,13 +7158,13 @@ void func_0x4086565B(BOOL bParam0)
 	for (i = 0; i < Global_diffmode; i = i + 1)
 	{
 		HUD::CLEAR_FLOATING_HELP(i, bParam0);
-		func_0x275F3B5(i);
+		func_0xB1A0D860(i);
 	}
 
 	return;
 }
 
-void func_0x275F3B5(int iParam0)
+void func_0xB1A0D860(int iParam0)
 {
 	Global_diffmode[iParam0].f_diffmode = 0;
 	TEXT_LABEL_ASSIGN_STRING(&Global_diffmode[iParam0], "", 16);

@@ -51,7 +51,7 @@ void func_0xB608DC9B()
 {
 	int num;
 
-	sLocal_diffmode = "1.69.02";
+	sLocal_diffmode = "1.69.02c";
 	iLocal_diffmode = -1;
 	iLocal_diffmode = -1;
 	uLocal_diffmode = { 5022.5645f, -5738f, 16.0937f };
@@ -72,7 +72,7 @@ void func_0xB608DC9B()
 	while (true)
 	{
 		if (IS_ROCKSTAR_DEV())
-			func_0xB4A8EA8A();
+			func_0x360D5356();
 	
 		func_0xE69DADEC();
 		func_0x109BC0D6();
@@ -86,6 +86,7 @@ void func_0xB608DC9B()
 			CHILIADWAKEUP_MAINTAIN();
 			func_0xB333D603();
 			func_0x5F76544B();
+			func_0x455A0262();
 		}
 	
 		if (NETWORK::NETWORK_IS_ACTIVITY_SESSION())
@@ -346,6 +347,158 @@ void func_0x1AE2964D()
 	}
 
 	return;
+}
+
+void func_0x455A0262()
+{
+	if (func_0xCFD5B39D())
+	{
+		if (func_0xE1FE3E() && !IS_BIT_SET(GET_MP_INT_CHARACTER_STAT(12035, -1), 0) && !_STAT_GET_PACKED_BOOL(51259, -1))
+		{
+			func_0x233B3FA1(true);
+			_STAT_SET_PACKED_BOOL(51259, true, -1);
+		}
+	}
+	else if (_STAT_GET_PACKED_BOOL(51259, -1))
+	{
+		func_0x233B3FA1(false);
+		_STAT_SET_PACKED_BOOL(51259, false, -1);
+	}
+
+	return;
+}
+
+void _STAT_SET_PACKED_BOOL(int iParam0, BOOL bParam1, int iParam2)
+{
+	if (iParam2 == -1)
+		iParam2 = func_0x47FF56D2();
+
+	STATS::SET_PACKED_STAT_BOOL_CODE(iParam0, bParam1, iParam2);
+	return;
+}
+
+int func_0x47FF56D2()
+{
+	return Global_diffmode;
+}
+
+void func_0x233B3FA1(BOOL bParam0)
+{
+	int address;
+
+	address = GET_MP_INT_CHARACTER_STAT(12035, -1);
+
+	if (bParam0)
+		MISC::SET_BIT(&address, 0);
+	else
+		MISC::CLEAR_BIT(&address, 0);
+
+	func_0xC00D48A9(12035, address, -1, true);
+	return;
+}
+
+void func_0xC00D48A9(int iParam0, int iParam1, int iParam2, BOOL bParam3)
+{
+	Hash statName;
+
+	statName = func_0x505A9F99(iParam0, iParam2);
+
+	if (statName != 0)
+		STATS::STAT_SET_INT(statName, iParam1, bParam3);
+
+	return;
+}
+
+Hash func_0x505A9F99(int iParam0, int iParam1)
+{
+	return STATS::_GET_STAT_HASH_FOR_CHARACTER_STAT(0, iParam0, GET_SLOT_NUMBER(iParam1));
+}
+
+int GET_SLOT_NUMBER(int iCharacter)
+{
+	int num;
+	int num2;
+
+	num = iCharacter;
+
+	if (num == -1)
+	{
+		num2 = func_0x47FF56D2();
+	
+		if (num2 > -1)
+		{
+			Global_diffmode = 0;
+			num = num2;
+		}
+		else
+		{
+			num = 0;
+			Global_diffmode = 1;
+		}
+	}
+
+	return num;
+}
+
+BOOL _STAT_GET_PACKED_BOOL(int iParam0, int iParam1)
+{
+	if (iParam1 == -1)
+		iParam1 = func_0x47FF56D2();
+
+	return STATS::GET_PACKED_STAT_BOOL_CODE(iParam0, iParam1);
+}
+
+int GET_MP_INT_CHARACTER_STAT(int iParam0, int iParam1)
+{
+	Hash statHash;
+	int outValue;
+
+	if (iParam0 != 14835)
+	{
+		statHash = func_0x505A9F99(iParam0, iParam1);
+	
+		if (STATS::STAT_GET_INT(statHash, &outValue, -1))
+			return outValue;
+	}
+
+	return 0;
+}
+
+BOOL func_0xE1FE3E()
+{
+	if (func_0x5137F6D6(166, -1))
+		return true;
+
+	if (_STAT_GET_PACKED_BOOL(28287, -1))
+		return true;
+
+	return false;
+}
+
+BOOL func_0x5137F6D6(int iParam0, int iParam1)
+{
+	Hash statHash;
+	BOOL outValue;
+
+	statHash = func_0x1C1291EE(iParam0, iParam1);
+
+	if (STATS::STAT_GET_BOOL(statHash, &outValue, -1))
+		return outValue;
+
+	return false;
+}
+
+Hash func_0x1C1291EE(int iParam0, int iParam1)
+{
+	return STATS::_GET_STAT_HASH_FOR_CHARACTER_STAT(10, iParam0, GET_SLOT_NUMBER(iParam1));
+}
+
+BOOL func_0xCFD5B39D()
+{
+	if (Global_diffmode && SCRIPT::GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(joaat("appinternet")) > 0)
+		return true;
+
+	return false;
 }
 
 void func_0x5F76544B()
@@ -1017,70 +1170,6 @@ void CHILIADWAKEUP_ROTATE_OBJECT()
 	return;
 }
 
-void func_0xC00D48A9(int iParam0, int iParam1, int iParam2, BOOL bParam3)
-{
-	Hash statName;
-
-	statName = func_0x505A9F99(iParam0, iParam2);
-
-	if (statName != 0)
-		STATS::STAT_SET_INT(statName, iParam1, bParam3);
-
-	return;
-}
-
-Hash func_0x505A9F99(int iParam0, int iParam1)
-{
-	return STATS::_GET_STAT_HASH_FOR_CHARACTER_STAT(0, iParam0, GET_SLOT_NUMBER(iParam1));
-}
-
-int GET_SLOT_NUMBER(int iCharacter)
-{
-	int num;
-	int num2;
-
-	num = iCharacter;
-
-	if (num == -1)
-	{
-		num2 = func_0x47FF56D2();
-	
-		if (num2 > -1)
-		{
-			Global_diffmode = 0;
-			num = num2;
-		}
-		else
-		{
-			num = 0;
-			Global_diffmode = 1;
-		}
-	}
-
-	return num;
-}
-
-int func_0x47FF56D2()
-{
-	return Global_diffmode;
-}
-
-int GET_MP_INT_CHARACTER_STAT(int iParam0, int iParam1)
-{
-	Hash statHash;
-	int outValue;
-
-	if (iParam0 != 14835)
-	{
-		statHash = func_0x505A9F99(iParam0, iParam1);
-	
-		if (STATS::STAT_GET_INT(statHash, &outValue, -1))
-			return outValue;
-	}
-
-	return 0;
-}
-
 BOOL func_0x48656DF7()
 {
 	if (_STAT_GET_PACKED_BOOL(22107, -1) && Global_diffmode == 7 && !ENTITY::IS_ENTITY_DEAD(PLAYER::PLAYER_PED_ID(), false) && func_0x52131E1C(PLAYER::PLAYER_PED_ID(), 426.433f, 5614.172f, 766.414f, 1f) && Global_diffmode.f_diffmode.f_diffmode >= 1 && Global_diffmode.f_diffmode.f_diffmode < 4 && func_0xC61AA4B9() && func_0x97C9EE39())
@@ -1117,14 +1206,6 @@ BOOL func_0xC61AA4B9()
 BOOL func_0x52131E1C(Ped pedParam0, float fParam1, float fParam2, float fParam3, float fParam4)
 {
 	return SYSTEM::VDIST2(ENTITY::GET_ENTITY_COORDS(pedParam0, true), fParam1) <= fParam4 * fParam4;
-}
-
-BOOL _STAT_GET_PACKED_BOOL(int iParam0, int iParam1)
-{
-	if (iParam1 == -1)
-		iParam1 = func_0x47FF56D2();
-
-	return STATS::GET_PACKED_STAT_BOOL_CODE(iParam0, iParam1);
 }
 
 void func_0x46F6CB8F()
@@ -1924,7 +2005,7 @@ BOOL func_0xFA31F4FF()
 	return true;
 }
 
-void func_0xB4A8EA8A()
+void func_0x360D5356()
 {
 	if (bLocal_diffmode)
 	{

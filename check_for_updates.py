@@ -46,8 +46,8 @@ def main():
 		os.system(f"./CodeWalkerCli/CodeWalker.Cli ./{filename} -g ./gta5 -o ./BgScript")
 		
 		# Run the decompiler
-		os.system("./decompiler/GTA\ V\ Script\ Decompiler -o export_diffmode -d -r ./BgScript")
-		os.system("./decompiler/GTA\ V\ Script\ Decompiler -o export_normal -r ./BgScript")
+		os.system(r"./decompiler/GTA\ V\ Script\ Decompiler -o export_diffmode -d -r -h ./BgScript")
+		os.system(r"./decompiler/GTA\ V\ Script\ Decompiler -o export_normal -r -i -h ./BgScript")
 
 		# Git commit the changes.
 		os.system('git add -A && git commit -m "BgScript updated" && git push')

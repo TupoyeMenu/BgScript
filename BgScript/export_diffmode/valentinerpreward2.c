@@ -2260,13 +2260,13 @@ int GET_SLOT_NUMBER(int iCharacter)
 	
 		if (num2 > -1)
 		{
-			MPGlobalsStats = 0;
+			Global_diffmode = 0;
 			num = num2;
 		}
 		else
 		{
 			num = 0;
-			MPGlobalsStats = 1;
+			Global_diffmode = 1;
 		}
 	}
 
@@ -2548,7 +2548,7 @@ void func_0x32520C49()
 			NETWORK::NETWORK_SET_ENTITY_ONLY_EXISTS_FOR_PARTICIPANTS(vehiclePedIsUsing, false);
 		
 			if (func_0x1540FA4C(vehiclePedIsUsing, true) && func_0x6C1B60FD(vehiclePedIsUsing) == PLAYER::PLAYER_ID())
-				MPGlobalsAmbience.f_diffmode = -1;
+				Global_diffmode.f_diffmode = -1;
 			else if (func_0x1540FA4C(vehiclePedIsUsing, true))
 				func_0x97234A0B(&vehiclePedIsUsing);
 		}
@@ -2571,7 +2571,7 @@ void func_0x97234A0B(var uParam0)
 	else
 		func_0x8EE3C8AD(uParam0, num2, -1, PLAYER::PLAYER_ID(), false);
 
-	MPGlobalsAmbience.f_diffmode = num2;
+	Global_diffmode.f_diffmode = num2;
 	return;
 }
 
@@ -8218,7 +8218,7 @@ BOOL func_0x67F162DB()
 BOOL _IS_PLAYER_A_BEAST(Player plParam0)
 {
 	if (func_0x8EC56FC1(plParam0) == 146)
-		if (plParam0 == MPGlobalsAmbience.f_diffmode)
+		if (plParam0 == Global_diffmode.f_diffmode)
 			return true;
 
 	return false;
@@ -8477,7 +8477,7 @@ void func_0x357924CD()
 	int num;
 	BOOL flag;
 
-	if (IS_BIT_SET(MPGlobalsAmbience.f_diffmode.f_diffmode, 0))
+	if (IS_BIT_SET(Global_diffmode.f_diffmode.f_diffmode, 0))
 	{
 		bLocal_diffmode = true;
 	}
@@ -8721,7 +8721,7 @@ void func_0x5F76544B()
 	if (func_0xE3A3D5D5(PLAYER::PLAYER_ID()) != 0)
 		flag = false;
 
-	if (MPGlobalsAmbience.f_diffmode != 9)
+	if (Global_diffmode.f_diffmode != 9)
 		flag = false;
 
 	if (!CAM::IS_SCREEN_FADED_OUT())

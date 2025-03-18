@@ -103,7 +103,7 @@ void func_0xB608DC9B()
 	int num;
 	BOOL flag;
 
-	sLocal_0 = "1.70.11";
+	sLocal_0 = "1.70.12";
 	iLocal_20 = -1;
 	iLocal_21 = -1;
 	uLocal_25 = { 5022.5645f, -5738f, 16.0937f };
@@ -759,8 +759,9 @@ void func_0x83F63FA6(var uParam0)
 BOOL func_0x60405B44()
 {
 	int i;
+	Hash hashKey;
 
-	if (_STOPWATCH_HAS_TIME_PASSED(&uLocal_92, 10000, false))
+	if (_STOPWATCH_HAS_TIME_PASSED(&uLocal_92, 3000, false))
 	{
 		_STOPWATCH_RESET(&uLocal_92, false, false);
 	
@@ -768,7 +769,9 @@ BOOL func_0x60405B44()
 		{
 			for (i = 0; i <= Global_1048576.f_67 - 1; i = i + 1)
 			{
-				if (func_0x5000025C(MISC::GET_HASH_KEY(&Global_1048576.f_74[i])))
+				hashKey = MISC::GET_HASH_KEY(&Global_1048576.f_74[i]);
+			
+				if (func_0x5000025C(hashKey))
 					return true;
 			}
 		}
@@ -787,10 +790,9 @@ BOOL func_0x5000025C(Hash hParam0)
 		case 272315203:
 		case 973972777:
 		case -1349054386:
-		case 1303864770:
 		case -992586115:
-		case 1350027434:
-		case 1192477685:
+		case -873950947:
+		case 1794933847:
 		case 1144914597:
 		case -1644394473:
 		case -971075350:
@@ -845,6 +847,12 @@ BOOL func_0x5000025C(Hash hParam0)
 		case 1704054677:
 		case 35443586:
 		case -844541994:
+		case 465361:
+		case 1577743630:
+		case -137112501:
+		case -827758392:
+		case 1637918252:
+		case 1303864770:
 			return true;
 	
 		default:
@@ -3502,7 +3510,7 @@ int func_0x55931638(Player plParam0, BOOL bParam1, int iParam2)
 		return 0;
 
 	if (!bParam1)
-		if (func_0xE1F64FA8(plParam0, iParam2))
+		if (func_0x3C3F78C(plParam0, iParam2))
 			return 0;
 
 	player = /*Global_1887549*/globalPlayerBD_FM_3[plParam0].f_10;
@@ -3513,7 +3521,7 @@ int func_0x55931638(Player plParam0, BOOL bParam1, int iParam2)
 	return 0;
 }
 
-BOOL func_0xE1F64FA8(Player plParam0, int iParam1)
+BOOL func_0x3C3F78C(Player plParam0, int iParam1)
 {
 	if (func_0x6A46C9B4(plParam0))
 		if (func_0x6A46C9B4(/*Global_1887549*/globalPlayerBD_FM_3[plParam0].f_10))
@@ -16854,7 +16862,7 @@ int func_0x2758D2FB(int iParam0, int iParam1, int iParam2)
 		return 0;
 	}
 
-	num13 = func_0x5DFC44DD(num);
+	num13 = func_0xCBE7BE7C(num);
 
 	if (num13 != -1 || num == -1576586413)
 	{
@@ -17539,7 +17547,7 @@ int func_0xFD9D1331(int iParam0, BOOL bParam1)
 				return 10;
 		
 			default:
-				goto 0x105;
+				goto 0x106;
 		}
 	}
 	else
@@ -17587,7 +17595,7 @@ int func_0xFD9D1331(int iParam0, BOOL bParam1)
 	return -1;
 }
 
-int func_0x5DFC44DD(int iParam0)
+int func_0xCBE7BE7C(int iParam0)
 {
 	switch (iParam0)
 	{
@@ -32106,14 +32114,14 @@ int func_0xE3A3D5D5(Player plParam0)
 void func_0x662FBD38()
 {
 	if (func_0x3C4F8B7B(PLAYER::PLAYER_ID()) && !func_0xC19ACB14(PLAYER::PLAYER_ID()))
-		func_0x1F67362F(false);
+		func_0x1173212A(false);
 
 	if (func_0x8EA2A09B(PLAYER::PLAYER_ID()) && !func_0x4D4B5ACC(PLAYER::PLAYER_ID()))
 		func_0x9F6AA048(false);
 
 	if (func_0x3C4F8B7B(PLAYER::PLAYER_ID()) && func_0x8EA2A09B(PLAYER::PLAYER_ID()))
 		if (func_0x8622182D(PLAYER::PLAYER_ID()))
-			func_0x1F67362F(false);
+			func_0x1173212A(false);
 		else if (func_0xB2831D42(PLAYER::PLAYER_ID()))
 			func_0x9F6AA048(false);
 
@@ -32157,7 +32165,7 @@ BOOL func_0x8EA2A09B(Player plParam0)
 	return false;
 }
 
-void func_0x1F67362F(BOOL bParam0)
+void func_0x1173212A(BOOL bParam0)
 {
 	if (bParam0)
 		if (!IS_BIT_SET(/*Global_2657991*/GlobalplayerBD[PLAYER::PLAYER_ID()].f_324.f_3, 4))

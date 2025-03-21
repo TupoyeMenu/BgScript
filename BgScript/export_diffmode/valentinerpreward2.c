@@ -103,7 +103,7 @@ void func_0xB608DC9B()
 	int num;
 	BOOL flag;
 
-	sLocal_diffmode = "1.70.13";
+	sLocal_diffmode = "1.70.14";
 	iLocal_diffmode = -1;
 	iLocal_diffmode = -1;
 	uLocal_diffmode = { 5022.5645f, -5738f, 16.0937f };
@@ -860,6 +860,7 @@ BOOL func_0x5000025C(Hash hParam0)
 		case 2067181637:
 		case 490549700:
 		case -1254107161:
+		case 1417500888:
 			return true;
 	
 		default:
@@ -906,6 +907,7 @@ void _STOPWATCH_INITIALIZE(var pStopwatch, BOOL useLocalTimer, BOOL useAccurateT
 void func_0x7DBAD420()
 {
 	Vehicle vehiclePedIsIn;
+	Hash entityModel;
 
 	if (!func_0xC08D41D6())
 		return;
@@ -920,8 +922,12 @@ void func_0x7DBAD420()
 			vehiclePedIsIn = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), false);
 		
 			if (_DOES_ENTITY_EXIST_AND_IS_ALIVE(vehiclePedIsIn))
-				if (ENTITY::GET_ENTITY_MODEL(vehiclePedIsIn) == joaat("firetruk"))
+			{
+				entityModel = ENTITY::GET_ENTITY_MODEL(vehiclePedIsIn);
+			
+				if (entityModel == joaat("firetruk") || entityModel == joaat("riot2"))
 					PAD::DISABLE_CONTROL_ACTION(PLAYER_CONTROL, INPUT_VEH_AIM, true);
+			}
 		}
 	}
 

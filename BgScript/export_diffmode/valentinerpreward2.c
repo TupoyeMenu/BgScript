@@ -77,6 +77,7 @@
 	int iLocal_diffmode = 0;
 	Ped pedLocal_diffmode = 0;
 	Object obLocal_diffmode = 0;
+	int iLocal_diffmode = 0;
 	BOOL bLocal_diffmode = 0;
 	BOOL bLocal_diffmode = 0;
 	BOOL bLocal_diffmode = 0;
@@ -95,21 +96,24 @@
 	var uLocal_diffmode = 0;
 	BOOL bLocal_diffmode = 0;
 	BOOL bLocal_diffmode = 0;
+	int iLocal_diffmode = 0;
 	var uScriptParam_diffmode = 0;
 	var uScriptParam_diffmode = 0;
 #pragma endregion Local Var
 
-void func_0xB608DC9B()
+void func_0x781FB738()
 {
 	int num;
 	BOOL flag;
 
-	sLocal_diffmode = "1.70.16";
+	sLocal_diffmode = "1.70.17";
 	iLocal_diffmode = -1;
 	iLocal_diffmode = -1;
 	uLocal_diffmode = { 5022.5645f, -5738f, 16.0937f };
 	uLocal_diffmode = { 5033.8535f, -5747.7485f, 20.4291f };
 	fLocal_diffmode = 2f;
+	iLocal_diffmode = -1;
+	iLocal_diffmode = -1;
 	MISC::SET_THIS_SCRIPT_CAN_BE_PAUSED(false);
 	MISC::NETWORK_SET_SCRIPT_IS_SAFE_FOR_NETWORK_GAME();
 	uScriptParam_diffmode == uScriptParam_diffmode;
@@ -178,6 +182,8 @@ void func_0xB608DC9B()
 		}
 	
 		func_0x97BB330A();
+		func_0x8311E361();
+		func_0xED6401B6();
 	
 		if (NETWORK::NETWORK_IS_ACTIVITY_SESSION())
 		{
@@ -662,6 +668,154 @@ BOOL func_0x932F3142(int iParam0, var uParam1, int iParam2, BOOL bParam3)
 		return true;
 
 	return false;
+}
+
+void func_0xED6401B6()
+{
+	int num;
+
+	if (iLocal_diffmode == -1)
+		iLocal_diffmode = func_0x5137F6D6(147, -1);
+
+	if (SCRIPT::GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(joaat("fm_mission_controller_2020")) != 0)
+	{
+		if (func_0x39484892())
+		{
+			num = func_0x5137F6D6(147, -1);
+		
+			if (num < iLocal_diffmode)
+				func_0xC591A5C3(147, iLocal_diffmode, -1);
+			else if (num > iLocal_diffmode)
+				iLocal_diffmode = num;
+		}
+	}
+
+	return;
+}
+
+void func_0xC591A5C3(int iParam0, int iParam1, int iParam2)
+{
+	Hash statName;
+
+	statName = func_0x44FC0648(iParam0, iParam2);
+	STATS::STAT_SET_INT(statName, iParam1, true);
+	return;
+}
+
+Hash func_0x44FC0648(int iParam0, int iParam1)
+{
+	return STATS::_GET_STAT_HASH_FOR_CHARACTER_STAT(8, iParam0, GET_SLOT_NUMBER(iParam1));
+}
+
+int GET_SLOT_NUMBER(int iCharacter)
+{
+	int num;
+	int num2;
+
+	num = iCharacter;
+
+	if (num == -1)
+	{
+		num2 = func_0x47FF56D2();
+	
+		if (num2 > -1)
+		{
+			MPGlobalsStats = 0;
+			num = num2;
+		}
+		else
+		{
+			num = 0;
+			MPGlobalsStats = 1;
+		}
+	}
+
+	return num;
+}
+
+BOOL func_0x39484892()
+{
+	return func_0xA2399001(*g_FMMC_STRUCT.f_diffmode);
+}
+
+BOOL func_0xA2399001(int iParam0)
+{
+	int i;
+
+	if (iParam0 == 0)
+		return 0;
+
+	for (i = 0; i < 6; i = i + 1)
+	{
+		if (iParam0 == func_0x62114499(i))
+			return 1;
+	}
+
+	return 0;
+}
+
+int func_0x5137F6D6(int iParam0, int iParam1)
+{
+	Hash statHash;
+	int outValue;
+
+	statHash = func_0x44FC0648(iParam0, iParam1);
+
+	if (STATS::STAT_GET_INT(statHash, &outValue, -1))
+		return outValue;
+
+	return 0;
+}
+
+void func_0x8311E361()
+{
+	int num;
+
+	num = GET_MP_INT_CHARACTER_STAT(12457, -1);
+
+	if (iLocal_diffmode == -1)
+		iLocal_diffmode = num;
+
+	if (iLocal_diffmode == num)
+		return;
+
+	if (PLAYER::PLAYER_ID() > -1 && PLAYER::PLAYER_ID() < 32)
+		Global_diffmode[PLAYER::PLAYER_ID()].f_diffmode.f_diffmode = 0;
+
+	_STAT_SET_PACKED_BOOL(51260, false, -1);
+	_STAT_SET_PACKED_BOOL(51261, false, -1);
+	_STAT_SET_PACKED_BOOL(51262, false, -1);
+	_STAT_SET_PACKED_BOOL(51263, false, -1);
+	_STAT_SET_PACKED_BOOL(51264, false, -1);
+	_STAT_SET_PACKED_BOOL(51265, false, -1);
+	_STAT_SET_PACKED_BOOL(51266, false, -1);
+	_STAT_SET_PACKED_BOOL(51268, false, -1);
+	_STAT_SET_PACKED_BOOL(51269, false, -1);
+	_STAT_SET_PACKED_BOOL(51270, false, -1);
+	_STAT_SET_PACKED_BOOL(51271, false, -1);
+	iLocal_diffmode = num;
+	return;
+}
+
+int GET_MP_INT_CHARACTER_STAT(int iParam0, int iParam1)
+{
+	Hash statHash;
+	int outValue;
+
+	if (iParam0 != 15468)
+	{
+		statHash = func_0x505A9F99(iParam0, iParam1);
+	
+		if (STATS::STAT_GET_INT(statHash, &outValue, -1))
+			return outValue;
+	}
+
+	return 0;
+}
+
+Hash func_0x505A9F99(int iParam0, int iParam1)
+{
+	return STATS::_GET_STAT_HASH_FOR_CHARACTER_STAT(0, iParam0, GET_SLOT_NUMBER(iParam1));
 }
 
 void func_0x97BB330A()
@@ -2080,37 +2234,6 @@ void func_0xC00D48A9(int iParam0, int iParam1, int iParam2, BOOL bParam3)
 	return;
 }
 
-Hash func_0x505A9F99(int iParam0, int iParam1)
-{
-	return STATS::_GET_STAT_HASH_FOR_CHARACTER_STAT(0, iParam0, GET_SLOT_NUMBER(iParam1));
-}
-
-int GET_SLOT_NUMBER(int iCharacter)
-{
-	int num;
-	int num2;
-
-	num = iCharacter;
-
-	if (num == -1)
-	{
-		num2 = func_0x47FF56D2();
-	
-		if (num2 > -1)
-		{
-			MPGlobalsStats = 0;
-			num = num2;
-		}
-		else
-		{
-			num = 0;
-			MPGlobalsStats = 1;
-		}
-	}
-
-	return num;
-}
-
 int func_0x7BEA6B6B(int iParam0, BOOL bParam1)
 {
 	if (bParam1)
@@ -2514,22 +2637,6 @@ void func_0xC5EEEB87(int iParam0, var uParam1, var uParam2)
 	*uParam2 = (iParam0 - 1) / (101 - 1);
 	*uParam1 = iParam0 - ((101 - 1) * *uParam2);
 	return;
-}
-
-int GET_MP_INT_CHARACTER_STAT(int iParam0, int iParam1)
-{
-	Hash statHash;
-	int outValue;
-
-	if (iParam0 != 15468)
-	{
-		statHash = func_0x505A9F99(iParam0, iParam1);
-	
-		if (STATS::STAT_GET_INT(statHash, &outValue, -1))
-			return outValue;
-	}
-
-	return 0;
 }
 
 BOOL func_0x2F4042DD(Player plParam0)
@@ -3916,7 +4023,7 @@ int func_0x7784C9D8(int iParam0, int iParam1)
 {
 	if (iParam1 >= 363)
 	{
-		return func_0x8F1CF2E7(iParam0, iParam1);
+		return func_0x5E3D5C7B(iParam0, iParam1);
 	}
 	else
 	{
@@ -11810,7 +11917,7 @@ int func_0x7784C9D8(int iParam0, int iParam1)
 	return 1630;
 }
 
-int func_0x8F1CF2E7(int iParam0, int iParam1)
+int func_0x5E3D5C7B(int iParam0, int iParam1)
 {
 	if (func_0xA8BA5EA5(iParam1))
 		return 15468;
@@ -17020,7 +17127,7 @@ int func_0x2758D2FB(int iParam0, int iParam1, int iParam2)
 
 	if (num13 != -1 || num == -1576586413)
 	{
-		if (func_0x413FC9D(num))
+		if (func_0xDF32335C(num))
 			return 1;
 	
 		return 0;
@@ -17054,7 +17161,7 @@ int func_0x2758D2FB(int iParam0, int iParam1, int iParam2)
 		return 0;
 	}
 
-	num16 = func_0x3841B42D(num);
+	num16 = func_0x7272707B(num);
 
 	if (num16 != -1)
 	{
@@ -17147,24 +17254,6 @@ BOOL func_0x450FD245(Player plParam0, int iParam1)
 	return false;
 }
 
-int func_0x5137F6D6(int iParam0, int iParam1)
-{
-	Hash statHash;
-	int outValue;
-
-	statHash = func_0x44FC0648(iParam0, iParam1);
-
-	if (STATS::STAT_GET_INT(statHash, &outValue, -1))
-		return outValue;
-
-	return 0;
-}
-
-Hash func_0x44FC0648(int iParam0, int iParam1)
-{
-	return STATS::_GET_STAT_HASH_FOR_CHARACTER_STAT(8, iParam0, GET_SLOT_NUMBER(iParam1));
-}
-
 int func_0xAFBAC931(int iParam0)
 {
 	switch (iParam0)
@@ -17238,7 +17327,7 @@ BOOL func_0xC61EC99(int iParam0)
 	return false;
 }
 
-int func_0x3841B42D(int iParam0)
+int func_0x7272707B(int iParam0)
 {
 	switch (iParam0)
 	{
@@ -17575,7 +17664,7 @@ int func_0xE569D241(int iParam0)
 	return -1;
 }
 
-BOOL func_0x413FC9D(int iParam0)
+BOOL func_0xDF32335C(int iParam0)
 {
 	if (!g_bInMultiplayer)
 		return false;
@@ -31759,7 +31848,7 @@ BOOL func_0xA3993EC8(BOOL bParam0)
 	player = PLAYER::PLAYER_ID();
 
 	if (func_0x6A46C9B4(player))
-		if (func_0xDDB0D9A1(&(GlobalplayerBD[player].f_diffmode), 0) || func_0x928E8225(player) || func_0xFE840448(player) || func_0xB2831D42(player) || func_0x296323FE(player) || func_0xA4C8B8D7(player) || func_0x88D363EA(player) || func_0xE575EF3(player) || func_0xB3E29AC5(player) || func_0xF622C929(player) && func_0x1387ACAA(player) || func_0x589A6463(player) || func_0xF8DB13F7(player) || func_0x70532CF7(player) || func_0x8622182D(player) || func_0x4FC9F912(player))
+		if (func_0xDDB0D9A1(&(GlobalplayerBD[player].f_diffmode), 0) || func_0x5421CA25(player) || func_0xFE840448(player) || func_0xB2831D42(player) || func_0x296323FE(player) || func_0xA4C8B8D7(player) || func_0x88D363EA(player) || func_0xE575EF3(player) || func_0xB3E29AC5(player) || func_0xF622C929(player) && func_0x1387ACAA(player) || func_0x589A6463(player) || func_0xF8DB13F7(player) || func_0x70532CF7(player) || func_0x8622182D(player) || func_0x4FC9F912(player))
 			return true;
 
 	if (bParam0)
@@ -31962,7 +32051,7 @@ BOOL func_0xFE840448(Player plParam0)
 	return false;
 }
 
-BOOL func_0x928E8225(Player plParam0)
+BOOL func_0x5421CA25(Player plParam0)
 {
 	if (plParam0 != _INVALID_PLAYER_INDEX())
 		if (_NETWORK_IS_PLAYER_VALID(plParam0, true, true))

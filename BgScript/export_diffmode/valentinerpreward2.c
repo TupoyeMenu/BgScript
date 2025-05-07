@@ -109,7 +109,7 @@ void func_0x781FB738()
 	int num;
 	BOOL flag;
 
-	sLocal_diffmode = "1.70.18";
+	sLocal_diffmode = "1.70.19";
 	iLocal_diffmode = -1;
 	iLocal_diffmode = -1;
 	uLocal_diffmode = { 5022.5645f, -5738f, 16.0937f };
@@ -181,6 +181,8 @@ void func_0x781FB738()
 				func_0x59F528B1();
 				func_0x2DDF6996();
 				func_0x4E4CDF1();
+				func_0x1671ED62();
+				func_0xB1B7E4A();
 			}
 		
 			func_0x21757A7C(flag);
@@ -188,7 +190,7 @@ void func_0x781FB738()
 		}
 	
 		func_0x97BB330A();
-		func_0x8311E361();
+		func_0x9561CF0A();
 		func_0xED6401B6();
 	
 		if (NETWORK::NETWORK_IS_ACTIVITY_SESSION())
@@ -794,9 +796,18 @@ int func_0x5137F6D6(int iParam0, int iParam1)
 	return 0;
 }
 
-void func_0x8311E361()
+void func_0x9561CF0A()
 {
 	int num;
+
+	if (!NETWORK::NETWORK_IS_GAME_IN_PROGRESS())
+		return;
+
+	if (SCRIPT::GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(joaat("freemode")) == 0)
+		return;
+
+	if (!func_0xDBD936D3())
+		return;
 
 	num = GET_MP_INT_CHARACTER_STAT(12457, -1);
 
@@ -843,6 +854,19 @@ int GET_MP_INT_CHARACTER_STAT(int iParam0, int iParam1)
 Hash func_0x505A9F99(int iParam0, int iParam1)
 {
 	return STATS::_GET_STAT_HASH_FOR_CHARACTER_STAT(0, iParam0, GET_SLOT_NUMBER(iParam1));
+}
+
+BOOL func_0xDBD936D3()
+{
+	if (func_0x4228A1C2() == 0)
+		return true;
+
+	return false;
+}
+
+int func_0x4228A1C2()
+{
+	return g_TransitionData.f_diffmode;
 }
 
 void func_0x97BB330A()
@@ -1089,6 +1113,59 @@ void _STOPWATCH_INITIALIZE(var pStopwatch, BOOL useLocalTimer, BOOL useAccurateT
 	return;
 }
 
+void func_0xB1B7E4A()
+{
+	if (SCRIPT::GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(joaat("freemode")) > 0 && func_0x9C0D6B2F())
+	{
+		func_0x67413911(1);
+		NETWORK::NETWORK_BAIL(1, 0, 0);
+	}
+
+	return;
+}
+
+void func_0x67413911(int iParam0)
+{
+	Global_diffmode = iParam0;
+	return;
+}
+
+BOOL func_0x9C0D6B2F()
+{
+	if (SCRIPT::GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(joaat("creator")) == 0 && SCRIPT::GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(joaat("fm_race_creator")) == 0 && SCRIPT::GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(joaat("fm_deathmatch_creator")) == 0 && SCRIPT::GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(joaat("fm_lts_creator")) == 0 && SCRIPT::GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(joaat("fm_capture_creator")) == 0 && SCRIPT::GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(joaat("fm_survival_creator")) == 0 && SCRIPT::GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(joaat("basic_creator")) == 0 && SCRIPT::GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(joaat("freemode_creator")) == 0)
+		return false;
+
+	return true;
+}
+
+void func_0x1671ED62()
+{
+	if (Global_diffmode.f_diffmode || func_0x56F73828(10000))
+		if (_STOPWATCH_IS_INITIALIZED(&(Global_diffmode.f_diffmode.f_diffmode)))
+			_STOPWATCH_DESTROY(&(Global_diffmode.f_diffmode.f_diffmode));
+
+	return;
+}
+
+void _STOPWATCH_DESTROY(var uParam0)
+{
+	uParam0->f_diffmode = 0;
+	return;
+}
+
+BOOL _STOPWATCH_IS_INITIALIZED(var uParam0)
+{
+	return uParam0->f_diffmode;
+}
+
+BOOL func_0x56F73828(int iParam0)
+{
+	if (Global_diffmode.f_diffmode.f_diffmode == 0 && Global_diffmode.f_diffmode.f_diffmode == 1)
+		return MISC::ABSI(NETWORK::GET_TIME_DIFFERENCE(Global_diffmode.f_diffmode.f_diffmode, NETWORK::GET_NETWORK_TIME_ACCURATE())) > iParam0;
+
+	return false;
+}
+
 void func_0x4E4CDF1()
 {
 	if (!Global_diffmode.f_diffmode && !func_0x56F73828(10000))
@@ -1115,14 +1192,6 @@ void func_0x4E4CDF1()
 		g_sMPTunables.f_diffmode = 1;
 
 	return;
-}
-
-BOOL func_0x56F73828(int iParam0)
-{
-	if (Global_diffmode.f_diffmode.f_diffmode == 0 && Global_diffmode.f_diffmode.f_diffmode == 1)
-		return MISC::ABSI(NETWORK::GET_TIME_DIFFERENCE(Global_diffmode.f_diffmode.f_diffmode, NETWORK::GET_NETWORK_TIME_ACCURATE())) > iParam0;
-
-	return false;
 }
 
 void func_0x2DDF6996()
@@ -1384,12 +1453,6 @@ void func_0xD1CF253E()
 		PED::SET_PED_CAN_RAGDOLL(PLAYER::PLAYER_PED_ID(), true);
 	}
 
-	return;
-}
-
-void _STOPWATCH_DESTROY(var uParam0)
-{
-	uParam0->f_diffmode = 0;
 	return;
 }
 
@@ -2133,19 +2196,6 @@ int func_0x1DCD393E(int iParam0, BOOL bParam1)
 	}
 
 	return num;
-}
-
-BOOL func_0xDBD936D3()
-{
-	if (func_0x4228A1C2() == 0)
-		return true;
-
-	return false;
-}
-
-int func_0x4228A1C2()
-{
-	return g_TransitionData.f_diffmode;
 }
 
 BOOL func_0xEBB0E6F7()
@@ -32147,11 +32197,6 @@ int _STOPWATCH_GET_TIME_PASSED(var pStopwatch, BOOL useLocalTimer, BOOL useAccur
 			return NETWORK::GET_TIME_DIFFERENCE(NETWORK::GET_NETWORK_TIME_ACCURATE(), *pStopwatch);
 
 	return NETWORK::GET_TIME_DIFFERENCE(MISC::GET_GAME_TIMER(), *pStopwatch);
-}
-
-BOOL _STOPWATCH_IS_INITIALIZED(var uParam0)
-{
-	return uParam0->f_diffmode;
 }
 
 void func_0xD90CE4E3()

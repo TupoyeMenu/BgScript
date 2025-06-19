@@ -47,7 +47,7 @@ void func_0x39D29571()
 {
 	int num;
 
-	sLocal_diffmode = "1.71.02";
+	sLocal_diffmode = "1.71.03b";
 	iLocal_diffmode = -1;
 	iLocal_diffmode = -1;
 	MISC::SET_THIS_SCRIPT_CAN_BE_PAUSED(false);
@@ -65,7 +65,7 @@ void func_0x39D29571()
 	while (true)
 	{
 		if (IS_ROCKSTAR_DEV())
-			func_0xF323BBA4();
+			func_0x2BFE8A1();
 	
 		if (NETWORK::NETWORK_IS_GAME_IN_PROGRESS() && Global_diffmode.f_diffmode)
 		{
@@ -79,6 +79,7 @@ void func_0x39D29571()
 			func_0x639BDC70();
 			func_0xA7D24319();
 			func_0xA21B3D4D();
+			func_0xA61AFFC8();
 			CHILIADWAKEUP_MAINTAIN();
 		}
 	
@@ -560,6 +561,16 @@ BOOL _STOPWATCH_HAS_TIME_PASSED(var pStopwatch, int millis, BOOL useLocalTimer)
 BOOL _STOPWATCH_IS_INITIALIZED(var uParam0)
 {
 	return uParam0->f_diffmode;
+}
+
+void func_0xA61AFFC8()
+{
+	if (IS_BIT_SET(Global_diffmode[PLAYER::PLAYER_ID()].f_diffmode.f_diffmode.f_diffmode, 17))
+		if (!Global_diffmode.f_diffmode)
+			if (SCRIPT::GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH(joaat("am_mp_rc_vehicle")) == 0 && !IS_BIT_SET(Global_diffmode[PLAYER::PLAYER_ID()].f_diffmode.f_diffmode.f_diffmode, 16))
+				MISC::CLEAR_BIT(&(Global_diffmode[PLAYER::PLAYER_ID()].f_diffmode.f_diffmode.f_diffmode), 17);
+
+	return;
 }
 
 void func_0xA21B3D4D()
@@ -1174,13 +1185,22 @@ void func_0xFE6ECE6C()
 	else if (func_0xCF99D737())
 	{
 		if (func_0x6DF81F4A(1))
+		{
 			func_0x4C8CAB3D(24924, 100, -1);
+			bLocal_diffmode = false;
+		}
 	
 		if (func_0x6DF81F4A(2))
+		{
 			func_0x4C8CAB3D(24926, 100, -1);
+			bLocal_diffmode = false;
+		}
 	
 		if (func_0x6DF81F4A(3))
+		{
 			func_0x4C8CAB3D(24925, 100, -1);
+			bLocal_diffmode = false;
+		}
 	}
 
 	return;
@@ -1239,7 +1259,7 @@ void func_0x31B9B076()
 				
 					if (VEHICLE::IS_VEHICLE_DRIVEABLE(vehiclePedIsIn, false) && ENTITY::GET_ENTITY_MODEL(vehiclePedIsIn) == func_0x9AA99395(true))
 					{
-						if (func_0x5678F590(vehiclePedIsIn, true))
+						if (func_0xE5EEEC9D(vehiclePedIsIn, true))
 						{
 							bLocal_diffmode = true;
 							g_sMPTunables.f_diffmode = 1;
@@ -1261,7 +1281,7 @@ void func_0x31B9B076()
 	return;
 }
 
-BOOL func_0x5678F590(Vehicle veParam0, BOOL bParam1)
+BOOL func_0xE5EEEC9D(Vehicle veParam0, BOOL bParam1)
 {
 	if (Global_diffmode)
 		if (ENTITY::DOES_ENTITY_EXIST(veParam0) && !bParam1 || VEHICLE::IS_VEHICLE_DRIVEABLE(veParam0, false))
@@ -1732,8 +1752,8 @@ void func_0x2AADB392()
 {
 	if (func_0x5EA8DF5A(PLAYER::PLAYER_ID()) == 361 && CUTSCENE::IS_CUTSCENE_PLAYING())
 	{
-		func_0x4F9E2074();
-		func_0xF83820EA();
+		func_0x23AE4E6D();
+		func_0xBA64DC2();
 	}
 	else
 	{
@@ -1744,7 +1764,7 @@ void func_0x2AADB392()
 	return;
 }
 
-void func_0xF83820EA()
+void func_0xBA64DC2()
 {
 	Ped entityIndexOfCutsceneEntity;
 	Vehicle vehicleIndexFromEntityIndex;
@@ -1769,7 +1789,7 @@ void func_0xF83820EA()
 	return;
 }
 
-void func_0x4F9E2074()
+void func_0x23AE4E6D()
 {
 	Entity entityIndexOfCutsceneEntity;
 	Entity entityIndexOfCutsceneEntity2;
@@ -1799,7 +1819,7 @@ void func_0x4F9E2074()
 	return;
 }
 
-void func_0xF323BBA4()
+void func_0x2BFE8A1()
 {
 	if (bLocal_diffmode)
 	{

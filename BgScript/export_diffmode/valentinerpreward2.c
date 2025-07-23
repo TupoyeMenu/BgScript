@@ -3,7 +3,6 @@
 	BOOL bLocal_diffmode = 0;
 	int iLocal_diffmode = 0;
 	BOOL bLocal_diffmode = 0;
-	BOOL bLocal_diffmode = 0;
 	Object obLocal_diffmode = 0;
 	BOOL bLocal_diffmode = 0;
 	BOOL bLocal_diffmode = 0;
@@ -56,7 +55,7 @@ void func_0x39D29571()
 	int num;
 	BOOL flag;
 
-	sLocal_diffmode = "1.71.08";
+	sLocal_diffmode = "1.71.10";
 	iLocal_diffmode = -1;
 	iLocal_diffmode = -1;
 	MISC::SET_THIS_SCRIPT_CAN_BE_PAUSED(false);
@@ -74,7 +73,7 @@ void func_0x39D29571()
 	while (true)
 	{
 		if (IS_ROCKSTAR_DEV())
-			func_0xCCB6E0D7();
+			func_0x2E7B38B3();
 	
 		flag = NETWORK::NETWORK_IS_GAME_IN_PROGRESS();
 	
@@ -86,7 +85,7 @@ void func_0x39D29571()
 				FIX_FOR_3280561();
 				FIX_FOR_3533670();
 				FIX_FOR_5092622();
-				func_0xCA29E452();
+				func_0xCB14918B();
 				func_0xFE6ECE6C();
 				func_0xC65DAA2();
 				func_0x639BDC70();
@@ -843,12 +842,15 @@ void func_0xE6095B94()
 	}
 	else if (bLocal_diffmode)
 	{
-		bLocal_diffmode = false;
-		MISC::CLEAR_BIT(&(Global_diffmode[PLAYER::PLAYER_ID()].f_diffmode.f_diffmode), 9);
-	
-		for (j = 0; j < 12; j = j + 1)
+		if (!IS_BIT_SET(session, 7) && !IS_BIT_SET(session, 8) && !IS_BIT_SET(session, 4) && !IS_BIT_SET(session, 1) && !_IS_FMMC_ACTIVE() && !IS_BIT_SET(Global_diffmode.f_diffmode, 5))
 		{
-			Global_diffmode.f_diffmode[j] = 0;
+			bLocal_diffmode = false;
+			MISC::CLEAR_BIT(&(Global_diffmode[PLAYER::PLAYER_ID()].f_diffmode.f_diffmode), 9);
+		
+			for (j = 0; j < 12; j = j + 1)
+			{
+				Global_diffmode.f_diffmode[j] = 0;
+			}
 		}
 	}
 
@@ -2620,72 +2622,34 @@ void func_0x4C8CAB3D(int iParam0, int iParam1, int iParam2)
 	return;
 }
 
-void func_0xCA29E452()
+void func_0xCB14918B()
 {
-	Vehicle vehiclePedIsIn;
-
 	if (!g_sMPTunables.f_diffmode)
-	{
-		if (func_0x6AB0796B(PLAYER::PLAYER_ID()) || func_0x6AB0796B(PLAYER::PLAYER_ID()))
-		{
-			if (_DOES_ENTITY_EXIST_AND_IS_ALIVE(PLAYER::PLAYER_PED_ID()))
-			{
-				if (PED::IS_PED_IN_ANY_VEHICLE(PLAYER::PLAYER_PED_ID(), true))
-				{
-					vehiclePedIsIn = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), true);
-				
-					if (VEHICLE::IS_VEHICLE_DRIVEABLE(vehiclePedIsIn, false) && ENTITY::GET_ENTITY_MODEL(vehiclePedIsIn) == func_0x9AA99395(true))
-					{
-						if (func_0xEB3539DD(vehiclePedIsIn, true))
-						{
-							bLocal_diffmode = true;
-							g_sMPTunables.f_diffmode = 1;
-						}
-					}
-				}
-			}
-		}
-	}
-	else if (bLocal_diffmode)
-	{
-		if (!(func_0x6AB0796B(PLAYER::PLAYER_ID()) || func_0x6AB0796B(PLAYER::PLAYER_ID())) || !_DOES_ENTITY_EXIST_AND_IS_ALIVE(PLAYER::PLAYER_PED_ID()) || !PED::IS_PED_IN_ANY_VEHICLE(PLAYER::PLAYER_PED_ID(), true))
-		{
-			g_sMPTunables.f_diffmode = 0;
-			bLocal_diffmode = false;
-		}
-	}
+		if (func_0x6AB0796B(PLAYER::PLAYER_ID()) && func_0x3BE2A2C8(PLAYER::PLAYER_ID()) || func_0x6AB0796B(PLAYER::PLAYER_ID()) && func_0x23DFA9E0(PLAYER::PLAYER_ID()))
+			g_sMPTunables.f_diffmode = 1;
+	else if (!(func_0x6AB0796B(PLAYER::PLAYER_ID()) && func_0x3BE2A2C8(PLAYER::PLAYER_ID())) && !(func_0x6AB0796B(PLAYER::PLAYER_ID()) && func_0x23DFA9E0(PLAYER::PLAYER_ID())))
+		g_sMPTunables.f_diffmode = 0;
 
 	return;
 }
 
-BOOL func_0xEB3539DD(Vehicle veParam0, BOOL bParam1)
+BOOL func_0x23DFA9E0(Player plParam0)
 {
-	if (Global_diffmode)
-		if (ENTITY::DOES_ENTITY_EXIST(veParam0) && !bParam1 || VEHICLE::IS_VEHICLE_DRIVEABLE(veParam0, false))
-			if (DECORATOR::DECOR_EXIST_ON(veParam0, "Player_Avenger"))
-				if (DECORATOR::DECOR_GET_INT(veParam0, "Player_Avenger") == NETWORK::NETWORK_HASH_FROM_PLAYER_HANDLE(PLAYER::PLAYER_ID()))
-					return true;
+	if (plParam0 != _INVALID_PLAYER_INDEX())
+		return IS_BIT_SET(Global_diffmode[plParam0].f_diffmode.f_diffmode, 6);
 
 	return false;
 }
 
-Hash func_0x9AA99395(BOOL bParam0)
-{
-	if (bParam0)
-		return joaat("avenger3");
-
-	return joaat("avenger");
-}
-
-int func_0x6AB0796B(Player plParam0)
+BOOL func_0x6AB0796B(Player plParam0)
 {
 	if (plParam0 == _INVALID_PLAYER_INDEX())
-		return 0;
+		return false;
 
 	if (func_0x3B8D0381(plParam0) && Global_diffmode[plParam0].f_diffmode.f_diffmode == plParam0)
-		return 1;
+		return true;
 
-	return 0;
+	return false;
 }
 
 BOOL func_0x3B8D0381(Player plParam0)
@@ -2698,15 +2662,23 @@ BOOL func_0x3B8D0381(Player plParam0)
 	return false;
 }
 
-int func_0x6AB0796B(Player plParam0)
+BOOL func_0x3BE2A2C8(Player plParam0)
+{
+	if (plParam0 != _INVALID_PLAYER_INDEX())
+		return IS_BIT_SET(Global_diffmode[plParam0].f_diffmode.f_diffmode, 16);
+
+	return false;
+}
+
+BOOL func_0x6AB0796B(Player plParam0)
 {
 	if (plParam0 == _INVALID_PLAYER_INDEX())
-		return 0;
+		return false;
 
 	if (func_0x6456149A(plParam0) && Global_diffmode[plParam0].f_diffmode.f_diffmode == plParam0)
-		return 1;
+		return true;
 
-	return 0;
+	return false;
 }
 
 BOOL func_0x6456149A(Player plParam0)
@@ -2833,8 +2805,8 @@ void func_0x2AADB392()
 {
 	if (func_0x5EA8DF5A(PLAYER::PLAYER_ID()) == 361 && CUTSCENE::IS_CUTSCENE_PLAYING())
 	{
-		func_0x1CF714B6();
-		func_0xDAD1DD1B();
+		func_0xAD05D171();
+		func_0x409FE59();
 	}
 	else
 	{
@@ -2845,7 +2817,7 @@ void func_0x2AADB392()
 	return;
 }
 
-void func_0xDAD1DD1B()
+void func_0x409FE59()
 {
 	Ped entityIndexOfCutsceneEntity;
 	Vehicle vehicleIndexFromEntityIndex;
@@ -2870,7 +2842,7 @@ void func_0xDAD1DD1B()
 	return;
 }
 
-void func_0x1CF714B6()
+void func_0xAD05D171()
 {
 	Entity entityIndexOfCutsceneEntity;
 	Entity entityIndexOfCutsceneEntity2;
@@ -2900,7 +2872,7 @@ void func_0x1CF714B6()
 	return;
 }
 
-void func_0xCCB6E0D7()
+void func_0x2E7B38B3()
 {
 	if (bLocal_diffmode)
 	{

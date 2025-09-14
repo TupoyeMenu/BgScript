@@ -59,7 +59,7 @@ void func_0x39D29571()
 	int num;
 	BOOL flag;
 
-	sLocal_0 = "1.71.12";
+	sLocal_0 = "1.71.13";
 	iLocal_19 = -1;
 	iLocal_20 = -1;
 	MISC::SET_THIS_SCRIPT_CAN_BE_PAUSED(false);
@@ -107,6 +107,7 @@ void func_0x39D29571()
 				func_0x4FC39DE8();
 				func_0x49F54B86();
 				func_0xEEAA8E89();
+				func_0x2E27DAA5();
 				CHILIADWAKEUP_MAINTAIN();
 			}
 		
@@ -959,6 +960,24 @@ BOOL _STOPWATCH_IS_INITIALIZED(var uParam0)
 	return uParam0->f_1;
 }
 
+void func_0x2E27DAA5()
+{
+	if (IS_BIT_SET(Global_2684745.f_3, 4) && !_IS_FMMC_ACTIVE())
+	{
+		PAD::DISABLE_CONTROL_ACTION(FRONTEND_CONTROL, INPUT_FRONTEND_PAUSE, true);
+		PAD::DISABLE_CONTROL_ACTION(FRONTEND_CONTROL, INPUT_FRONTEND_PAUSE_ALTERNATE, true);
+		PAD::DISABLE_CONTROL_ACTION(PLAYER_CONTROL, INPUT_FRONTEND_PAUSE, true);
+		PAD::DISABLE_CONTROL_ACTION(PLAYER_CONTROL, INPUT_FRONTEND_PAUSE_ALTERNATE, true);
+	}
+
+	return;
+}
+
+BOOL _IS_FMMC_ACTIVE()
+{
+	return Global_1845225[PLAYER::PLAYER_ID()].f_185 != 0;
+}
+
 void func_0xEEAA8E89()
 {
 	if (func_0xC27F0324())
@@ -1072,11 +1091,6 @@ void func_0xE6095B94()
 	}
 
 	return;
-}
-
-BOOL _IS_FMMC_ACTIVE()
-{
-	return Global_1845225[PLAYER::PLAYER_ID()].f_185 != 0;
 }
 
 BOOL func_0x1BE08D57(Player plParam0)

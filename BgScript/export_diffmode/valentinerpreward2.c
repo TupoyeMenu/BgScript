@@ -61,7 +61,7 @@ void func_0x39D29571()
 	int num;
 	BOOL flag;
 
-	sLocal_diffmode = "1.71.14";
+	sLocal_diffmode = "1.71.15";
 	iLocal_diffmode = -1;
 	iLocal_diffmode = -1;
 	MISC::SET_THIS_SCRIPT_CAN_BE_PAUSED(false);
@@ -263,11 +263,24 @@ BOOL func_0x10443771()
 
 void func_0xB533E4FE()
 {
-	if (!func_0xC27F0324())
+	if (!func_0xAC971DCB())
 		return;
 
 	bLocal_diffmode = true;
 	return;
+}
+
+BOOL func_0xAC971DCB()
+{
+	if (func_0xC27F0324() || func_0x9388197B())
+		return true;
+
+	return false;
+}
+
+BOOL func_0x9388197B()
+{
+	return *g_FMMC_STRUCT.f_diffmode == 846282902;
 }
 
 BOOL func_0xC27F0324()
@@ -1729,7 +1742,7 @@ BOOL _NETWORK_IS_PLAYER_VALID(Player player, BOOL bIsPlaying, BOOL bUnk)
 
 void func_0xEEAA8E89()
 {
-	if (func_0xC27F0324())
+	if (func_0xAC971DCB())
 	{
 		if (!bLocal_diffmode && !Global_diffmode)
 		{
@@ -2823,15 +2836,15 @@ void func_0x639BDC70()
 			if (Global_diffmode.f_diffmode && Global_diffmode != -1)
 			{
 				iLocal_diffmode = Global_diffmode;
-				STREAMING::REQUEST_MODEL(func_0x9CBF0166(iLocal_diffmode));
+				STREAMING::REQUEST_MODEL(func_0x502A0740(iLocal_diffmode));
 				iLocal_diffmode.f_diffmode = iLocal_diffmode.f_diffmode + 1;
 			}
 			break;
 	
 		case 1:
-			STREAMING::REQUEST_MODEL(func_0x9CBF0166(iLocal_diffmode));
+			STREAMING::REQUEST_MODEL(func_0x502A0740(iLocal_diffmode));
 		
-			if (STREAMING::HAS_MODEL_LOADED(func_0x9CBF0166(iLocal_diffmode)))
+			if (STREAMING::HAS_MODEL_LOADED(func_0x502A0740(iLocal_diffmode)))
 			{
 				if (!Global_diffmode.f_diffmode)
 				{
@@ -2862,7 +2875,7 @@ void func_0xC44972DB(int iParam0)
 
 	vector = { func_0x5B2695C0(iParam0) };
 	vector.f_diffmode = vector.f_diffmode - 2.5f;
-	iLocal_diffmode.f_diffmode = OBJECT::CREATE_OBJECT(func_0x9CBF0166(iParam0), vector, false, false, true);
+	iLocal_diffmode.f_diffmode = OBJECT::CREATE_OBJECT(func_0x502A0740(iParam0), vector, false, false, true);
 	ENTITY::SET_ENTITY_ROTATION(iLocal_diffmode.f_diffmode, func_0xEDA5FBD9(iParam0), 2, true);
 	OBJECT::SET_OBJECT_TARGETTABLE(iLocal_diffmode.f_diffmode, false, 0);
 	ENTITY::SET_ENTITY_PROOFS(iLocal_diffmode.f_diffmode, true, true, true, true, true, false, false, false);
@@ -3118,7 +3131,7 @@ Vector3 func_0x5B2695C0(int iParam0)
 	return 0f, 0f, 0f;
 }
 
-Hash func_0x9CBF0166(int iParam0)
+Hash func_0x502A0740(int iParam0)
 {
 	switch (iParam0)
 	{

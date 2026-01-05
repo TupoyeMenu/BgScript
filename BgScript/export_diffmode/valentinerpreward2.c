@@ -77,7 +77,7 @@ void func_0x7467AB9A()
 	int num;
 	BOOL flag;
 
-	sLocal_diffmode = "1.72.06";
+	sLocal_diffmode = "1.72.07";
 	plLocal_diffmode = _INVALID_PLAYER_INDEX();
 	iLocal_diffmode = -1;
 	iLocal_diffmode = -1;
@@ -125,7 +125,7 @@ void func_0x7467AB9A()
 				func_0x9101CF40();
 				func_0xB22BB7ED();
 				func_0x71147B0D();
-				func_0xB1F0FF35();
+				func_0xB8A76119();
 				func_0x369E58FD();
 				func_0xEEAA8E89();
 				func_0x85CB41F7();
@@ -139,6 +139,8 @@ void func_0x7467AB9A()
 				func_0x98EFE483();
 				func_0x61FD846F();
 				func_0xA8BF0C93();
+				func_0xB9ECF789();
+				func_0x2E27DAA5();
 				func_0xED57783B();
 				CHILIADWAKEUP_MAINTAIN();
 			}
@@ -1583,6 +1585,42 @@ BOOL func_0x3BED6F11(Player plParam0)
 	return false;
 }
 
+void func_0x2E27DAA5()
+{
+	if (IS_BIT_SET(Global_diffmode.f_diffmode, 4) && !_IS_FMMC_ACTIVE())
+	{
+		PAD::DISABLE_CONTROL_ACTION(FRONTEND_CONTROL, INPUT_FRONTEND_PAUSE, true);
+		PAD::DISABLE_CONTROL_ACTION(FRONTEND_CONTROL, INPUT_FRONTEND_PAUSE_ALTERNATE, true);
+		PAD::DISABLE_CONTROL_ACTION(PLAYER_CONTROL, INPUT_FRONTEND_PAUSE, true);
+		PAD::DISABLE_CONTROL_ACTION(PLAYER_CONTROL, INPUT_FRONTEND_PAUSE_ALTERNATE, true);
+	}
+
+	return;
+}
+
+BOOL _IS_FMMC_ACTIVE()
+{
+	return Global_diffmode[PLAYER::PLAYER_ID()].f_diffmode != 0;
+}
+
+void func_0xB9ECF789()
+{
+	if (Global_diffmode == 31)
+		if (_DOES_ENTITY_EXIST_AND_IS_ALIVE(PLAYER::PLAYER_PED_ID()))
+			PED::SET_PED_RESET_FLAG(PLAYER::PLAYER_PED_ID(), 150, true);
+
+	return;
+}
+
+BOOL _DOES_ENTITY_EXIST_AND_IS_ALIVE(Vehicle veParam0)
+{
+	if (ENTITY::DOES_ENTITY_EXIST(veParam0))
+		if (!ENTITY::IS_ENTITY_DEAD(veParam0, false))
+			return true;
+
+	return false;
+}
+
 void func_0xA8BF0C93()
 {
 	int num;
@@ -2057,15 +2095,6 @@ Vector3 func_0x97AC3813(int iParam0, int iParam1)
 	}
 
 	return 0f, 0f, 0f;
-}
-
-BOOL _DOES_ENTITY_EXIST_AND_IS_ALIVE(Vehicle veParam0)
-{
-	if (ENTITY::DOES_ENTITY_EXIST(veParam0))
-		if (!ENTITY::IS_ENTITY_DEAD(veParam0, false))
-			return true;
-
-	return false;
 }
 
 BOOL func_0xEF03168F(int iParam0, int iParam1)
@@ -3156,10 +3185,10 @@ void func_0x369E58FD()
 
 	if (IS_BIT_SET(Global_diffmode, 4) && func_0xE868219() >= 2)
 	{
-		Global_diffmode.f_diffmode[func_0x3931E21A(18, 0)] = { vector };
-		Global_diffmode.f_diffmode[func_0x3931E21A(18, 0)].f_diffmode = -49.93f;
-		Global_diffmode.f_diffmode[func_0x3931E21A(18, 1)] = { vector2 };
-		Global_diffmode.f_diffmode[func_0x3931E21A(18, 1)].f_diffmode = 130.61f;
+		Global_diffmode.f_diffmode[func_0x9876103(18, 0)] = { vector };
+		Global_diffmode.f_diffmode[func_0x9876103(18, 0)].f_diffmode = -49.93f;
+		Global_diffmode.f_diffmode[func_0x9876103(18, 1)] = { vector2 };
+		Global_diffmode.f_diffmode[func_0x9876103(18, 1)].f_diffmode = 130.61f;
 	}
 
 	if (!ENTITY::DOES_ENTITY_EXIST(veLocal_diffmode) || !ENTITY::DOES_ENTITY_EXIST(veLocal_diffmode) || !ENTITY::DOES_ENTITY_EXIST(veLocal_diffmode) || !ENTITY::DOES_ENTITY_EXIST(veLocal_diffmode))
@@ -3258,7 +3287,7 @@ int func_0xCA595B0(Vehicle veParam0)
 	return _int;
 }
 
-int func_0x3931E21A(int iParam0, int iParam1)
+int func_0x9876103(int iParam0, int iParam1)
 {
 	int i;
 
@@ -3289,7 +3318,7 @@ int func_0xE868219()
 	return 0;
 }
 
-void func_0xB1F0FF35()
+void func_0xB8A76119()
 {
 	if (Global_diffmode.f_diffmode.f_diffmode != -1)
 		if (Global_diffmode.f_diffmode == -1)

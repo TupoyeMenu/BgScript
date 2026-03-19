@@ -2,7 +2,7 @@
 import os, hashlib
 import urllib.request
 
-download_filename = "bg_ng_3751_0.rpf"
+download_filename = "bg_ng_3788_0.rpf"
 filename = "BgScript.rpf"
 file_hash = 0
 
@@ -19,7 +19,7 @@ def set_file_hash():
 		script_sha1_file.close()
 
 def has_bg_ng_updated():
-	with urllib.request.urlopen(f"http://prod.cloud.rockstargames.com/titles/gta5/pcros/bgscripts/{download_filename}") as f:
+	with urllib.request.urlopen(f"https://prod.cloud.rockstargames.com/titles/gta5/pcros/bgscripts/{download_filename}") as f:
 		global file_hash
 		file = f.read()
 		sha1 = hashlib.sha1(file)

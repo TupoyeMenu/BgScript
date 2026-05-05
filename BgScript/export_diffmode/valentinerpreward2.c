@@ -150,6 +150,9 @@
 	int iLocal_diffmode = 0;
 	BOOL bLocal_diffmode = 0;
 	BOOL bLocal_diffmode = 0;
+	var uLocal_diffmode = 0;
+	var uLocal_diffmode = 0;
+	BOOL bLocal_diffmode = 0;
 	BOOL bLocal_diffmode = 0;
 	BOOL bLocal_diffmode = 0;
 	BOOL bLocal_diffmode = 0;
@@ -177,7 +180,7 @@ void func_0xBC5A089()
 	int num;
 	BOOL flag;
 
-	sLocal_diffmode = "1.72.19";
+	sLocal_diffmode = "1.72.20";
 	plLocal_diffmode = _INVALID_PLAYER_INDEX();
 	iLocal_diffmode = -1;
 	iLocal_diffmode = -1;
@@ -249,6 +252,7 @@ void func_0xBC5A089()
 				func_0xB9ECF789();
 				func_0x2E27DAA5();
 				func_0x4D250A79();
+				func_0x9087A09C();
 				func_0x3C6B3E1A();
 				func_0xED57783B();
 				func_0xE8C3EC38();
@@ -2663,7 +2667,7 @@ void func_0xB0DED82E()
 				num = func_0xD57124E2(i, -1);
 			
 				if (num > 0)
-					if (func_0xCA2A3C57(i) > func_0xE7B36E4B(num))
+					if (func_0xDCAF3983(i) > func_0xE7B36E4B(num))
 						func_0x55CCFD29(i);
 			}
 		
@@ -3377,7 +3381,7 @@ int _IS_EXCLUSIVE_CONTENT_UNLOCKED()
 	return 0;
 }
 
-int func_0xCA2A3C57(int iParam0)
+int func_0xDCAF3983(int iParam0)
 {
 	int num;
 	int num2;
@@ -6237,7 +6241,7 @@ BOOL func_0x7F6BDB9B(int iParam0, int iParam1)
 					if (Global_diffmode.f_diffmode >= 10)
 						num2 = num2 + 1;
 				
-					if (func_0x89A3F2E7() >= *Global_diffmode.f_diffmode)
+					if (func_0x479CE154() >= *Global_diffmode.f_diffmode)
 						num2 = num2 + 1;
 				
 					if (Global_diffmode.f_diffmode >= Global_diffmode.f_diffmode)
@@ -6711,7 +6715,7 @@ int func_0x6A44CE01()
 	return GET_MP_INT_CHARACTER_STAT(9834, -1);
 }
 
-int func_0x89A3F2E7()
+int func_0x479CE154()
 {
 	int num;
 
@@ -8673,6 +8677,39 @@ float func_0x6FCD9657(BOOL bParam0)
 	return aspectRatio;
 }
 
+void func_0x9087A09C()
+{
+	if (Global_diffmode)
+	{
+		Global_diffmode.f_diffmode = 1;
+	
+		if (PLAYER::IS_SYSTEM_UI_BEING_DISPLAYED())
+		{
+			Global_diffmode = 1;
+			bLocal_diffmode = true;
+			_STOPWATCH_RESET(&uLocal_diffmode, false, false);
+		}
+		else if (bLocal_diffmode)
+		{
+			if (!_STOPWATCH_HAS_TIME_PASSED(&uLocal_diffmode, 5000, false))
+			{
+				Global_diffmode = 1;
+				return;
+			}
+		
+			bLocal_diffmode = false;
+			_STOPWATCH_DESTROY(&uLocal_diffmode);
+		}
+	}
+	else
+	{
+		bLocal_diffmode = false;
+		_STOPWATCH_DESTROY(&uLocal_diffmode);
+	}
+
+	return;
+}
+
 void func_0x4D250A79()
 {
 	if (Global_diffmode)
@@ -9976,7 +10013,7 @@ void func_0xF3775C0()
 				{
 					if (eventData == -487774749)
 					{
-						if (eventData.f_diffmode < 0 || *eventData.f_diffmode >= 50)
+						if (eventData.f_diffmode < 0 || eventData.f_diffmode >= 50)
 							return;
 					
 						for (j = 0; j <= *Global_diffmode.f_diffmode - 1; j = j + 1)
